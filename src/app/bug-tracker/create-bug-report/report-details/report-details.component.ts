@@ -18,19 +18,19 @@ import {
   map,
   Subscription,
 } from 'rxjs';
-import { Report } from 'src/app/interface/report';
-import { Details, User } from 'src/app/interface/user';
-import { UserService } from 'src/app/services/user.service';
-import {
-  currentUser,
-  isLoggedin,
-} from 'src/app/state/user-state/user.selector';
-import { Fields } from '../../interface/common';
-import { Description } from '../../interface/description';
-import { descriptionAction } from '../../state/description/description.action';
-import { initialBugDescriptionValue } from '../../state/description/description.reducer';
-import { descriptionSelector } from '../../state/description/description.selector';
-import { addReport } from '../../state/report/report.action';
+// import { Report } from 'src/app/interface/report';
+// import { Details, User } from 'src/app/interface/user';
+// import { UserService } from 'src/app/services/user.service';
+// import {
+//   currentUser,
+//   isLoggedin,
+// } from 'src/app/state/user-state/user.selector';
+// import { Fields } from '../../interface/common';
+// import { Description } from '../../interface/description';
+// import { descriptionAction } from '../../state/description/description.action';
+// import { initialBugDescriptionValue } from '../../state/description/description.reducer';
+// import { descriptionSelector } from '../../state/description/description.selector';
+// import { addReport } from '../../state/report/report.action';
 
 @Component({
   selector: 'report-details',
@@ -43,8 +43,8 @@ export class ReportDetailsComponent
 {
   @Input() severityOptions: string[];
   @Input() statusOptions: string[];
-  @Input() fields: Fields;
-  @Input() description: Description;
+  @Input() fields: any;
+  @Input() description: any;
   @ViewChild('subject') subjectField: ElementRef;
   @ViewChild('status') statusField: ElementRef;
   private _subscription: Subscription = new Subscription();
@@ -52,7 +52,6 @@ export class ReportDetailsComponent
   fg: FormGroup;
   constructor(
     private store: Store,
-    private userService: UserService,
     private router: Router
   ) {}
 
@@ -81,8 +80,8 @@ export class ReportDetailsComponent
 
     this._subscription.add(
       keyUp$.subscribe((value) => {
-        let description: Description = this.fg.getRawValue();
-        this.store.dispatch(descriptionAction({ description }));
+        // let description: Description = this.fg.getRawValue();
+        // this.store.dispatch(descriptionAction({ description }));
       })
     );
   }
@@ -92,8 +91,8 @@ export class ReportDetailsComponent
    * @returns `void`
    */
   updateDescriptionStore(value: string): void {
-    let description: Description = this.fg.getRawValue();
-    this.store.dispatch(descriptionAction({ description }));
+    // let description: Description = this.fg.getRawValue();
+    // this.store.dispatch(descriptionAction({ description }));
   }
 
   /**
@@ -122,8 +121,8 @@ export class ReportDetailsComponent
     this.fg.markAllAsTouched();
     const description = this._generateData(this.fg.getRawValue());
     const report = [description];
-    this.store.dispatch(descriptionAction({ description }));
-    this.store.dispatch(addReport({ report }));
+    // this.store.dispatch(descriptionAction({ description }));
+    // this.store.dispatch(addReport({ report }));
     if (!this.fg.invalid) {
       this._resetForm();
       this.router.navigate(['bugList']);
@@ -136,8 +135,8 @@ export class ReportDetailsComponent
    */
   private _resetForm(): void {
     this.fg.reset();
-    const description = initialBugDescriptionValue;
-    this.store.dispatch(descriptionAction({ description }));
+    // const description = initialBugDescriptionValue;
+    // this.store.dispatch(descriptionAction({ description }));
   }
 
   /**
@@ -145,18 +144,18 @@ export class ReportDetailsComponent
    * @param data `Description`
    * @returns `Description`
    */
-  private _generateData(data: Description): Description {
+  private _generateData(data: any): any {
     let user: string | undefined;
-    this.store.select(currentUser).subscribe((login) => {
-      user = login.username;
-    });
+    // this.store.select(currentUser).subscribe((login) => {
+    //   user = login.username;
+    // });
     return {
       subject: data.subject,
       status: data.status,
       severity: data.severity,
       describeTheBug: data.describeTheBug,
       user: user,
-      createdOn: this.userService.generateDate(),
+      // createdOn: this.userService.generateDate(),
     };
   }
 
