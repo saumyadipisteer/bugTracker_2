@@ -1,0 +1,48 @@
+.severity {
+  border: 1px solid #999;
+}
+
+@mixin setColor($general, $text) {
+  border: 1px solid $general;
+  background-color: $general;
+  color: $text;
+}
+
+.low {
+  @include setColor(rgb(7, 148, 12), #fff);
+}
+
+.medium {
+  @include setColor(rgb(217, 220, 13), #000);
+}
+
+.high {
+  @include setColor(rgb(220, 148, 13), #fff);
+}
+
+.overlay__menu {
+  list-style-type: none;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+
+  &-item {
+    @include setColor(rgb(228, 228, 228), rgb(54, 53, 53));
+    text-align: center;
+    border-radius: 5px;
+    margin: 5px 0;
+
+    &:hover{
+        cursor: pointer;
+        background-color: darken($color: rgb(228, 228, 228), $amount: 2);
+    }
+
+    &--link{
+        text-decoration: none;
+        color: rgb(54, 53, 53);
+    }
+  }
+}
+
