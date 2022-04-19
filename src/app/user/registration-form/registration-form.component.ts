@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 // import { Fields } from 'src/app/interface/report';
 // import { UserCredentials } from 'src/app/interface/user';
 // import { UserService } from 'src/app/services/user.service';
@@ -82,7 +83,7 @@ export class RegistrationFormComponent implements OnInit {
 
   fg: FormGroup;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
     this.fg = this.createForm();
@@ -141,13 +142,14 @@ export class RegistrationFormComponent implements OnInit {
 
   onSubmit(): void {
     this.fg.markAllAsTouched();
-    // if(this.userService.postUserInformation({
-    //   username: this.fg.getRawValue().username,
-    //   password: this.fg.getRawValue().password,
-    // }).status === 200){
-    //   this.router.navigate(['']);
-    // }
-
+    this.userService
+      .postNewUser({
+        username: this.fg.getRawValue().username,
+        password: this.fg.getRawValue().password,
+      })
+      .subscribe((data) => {
+        console.log(data);
+      });
     this.fg.reset();
   }
 }

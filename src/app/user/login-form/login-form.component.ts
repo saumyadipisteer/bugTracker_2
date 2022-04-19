@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 // import { Fields } from 'src/app/interface/report';
-// import { UserService } from 'src/app/services/user.service';
+import { UserService } from '../services/user.service';
 // import { userLogin } from 'src/app/state/user-state/user.action';
 
 @Component({
@@ -37,7 +37,7 @@ export class LoginFormComponent implements OnInit {
   fg: FormGroup;
 
   constructor(
-    // private userService: UserService,
+    private userService: UserService,
     private router: Router,
     private messageService: MessageService,
     private store: Store
@@ -86,7 +86,9 @@ export class LoginFormComponent implements OnInit {
   onSubmit(): void {
     this.fg.markAllAsTouched();
     //const status = this.userService.getUser(this.fg.getRawValue()).status;
-
+    this.userService.postUserData(this.fg.getRawValue()).subscribe(
+      data=>{console.log(data)}
+    )
     // if (status !== 200) {
     //   this.messageService.add({
     //     severity: 'error',
