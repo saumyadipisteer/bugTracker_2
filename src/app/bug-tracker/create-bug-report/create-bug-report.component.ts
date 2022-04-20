@@ -56,9 +56,7 @@ export class BugReportComponent implements OnInit {
     this.description = this.config.data?.report;
     this.type = this.config.data?.type;
     this.index = this.config.data?.index;
-    this.reportService.getReports().subscribe((report) => {
-      console.log(report);
-    });
+  
   }
 
   closeModal() {

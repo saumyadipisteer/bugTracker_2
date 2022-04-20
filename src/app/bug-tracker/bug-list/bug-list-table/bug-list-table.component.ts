@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-// import { Recipe } from 'src/app/interface/user';
 import { ConfirmationService } from 'primeng/api';
 import {
   DialogService,
@@ -8,18 +7,8 @@ import {
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
 import { BugReportComponent } from '../../create-bug-report/create-bug-report.component';
-import { ReportService } from '../../services/report.service';
 import { descriptionAction } from '../../state/description/description.action';
-// import { IngredientListComponent } from '../../ingredient/ingredient-list/ingredient-list.component';
-// import { ReportService } from 'src/app/services/report.service';
-// import { Report } from 'src/app/interface/report';
-// import { CreateBugReportComponent } from 'src/app/private/create-bug-report/create-bug-report.component';
-// import { Store } from '@ngrx/store';
-// import { descriptionSelector } from 'src/app/private/state/description/description.selector';
-// import { Observable } from 'rxjs';
-// import { Description } from 'src/app/private/interface/description';
-// import { addReport } from 'src/app/state/report-state/report.action';
-// import { descriptionAction } from 'src/app/private/state/description/description.action';
+import { deleteReport } from '../../state/report/report.action';
 
 @Component({
   selector: 'bug-list-table',
@@ -33,14 +22,13 @@ export class BugListTableComponent implements OnInit {
   ref: DynamicDialogRef;
   constructor(
     private dialogService: DialogService,
-    private reportService: ReportService,
     private store: Store,
     private confirmService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
-    this.reportService.getReports().subscribe((reports) => {
-      this.reports = reports['payload'];
+    this.store.subscribe((store) => {
+      this.reports = store['report'];
     });
   }
 
@@ -52,20 +40,13 @@ export class BugListTableComponent implements OnInit {
       data: { report: description, type: 'update', index: index },
       baseZIndex: 999999999,
     });
-    this.ref.onClose.subscribe(() => {
-      this.reportService.getReports().subscribe((reports) => {
-        this.reports = reports['payload'];
-        console.log(reports);
-      });
-    });
   }
 
   confirmDelete(index: number): void {
     this.confirmService.confirm({
       message: 'Are you sure you want to delete this report?',
       accept: () => {
-        this.reportService.deleteReport(index).subscribe()
-        
+        this.store.dispatch(deleteReport({ rIndex: index }));
       },
     });
   }

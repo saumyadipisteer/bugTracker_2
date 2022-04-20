@@ -12,11 +12,33 @@ export class ReportsEffect {
       this.action$.pipe(
         ofType(reportActionType.addReport),
         tap((action) => {
-          console.log(action["report"])
-          // this.reportService
-          // .postData(action["report"])
-          // .subscribe((data) => {
-          // });
+          this.reportService.postData(action['report']).subscribe((data) => {});
+        })
+      ),
+    { dispatch: false }
+  );
+
+  updateReport$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(reportActionType.updateReport),
+        tap((action) => {
+          this.reportService
+            .updateReport(action['rIndex'], action['report'])
+            .subscribe((data) => {});
+        })
+      ),
+    { dispatch: false }
+  );
+
+  deleteReport$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(reportActionType.deleteReport),
+        tap((action) => {
+          this.reportService
+            .deleteReport(action['rIndex'])
+            .subscribe((data) => {});
         })
       ),
     { dispatch: false }

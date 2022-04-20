@@ -26,7 +26,7 @@ import { Description } from '../../interface/description';
 import { ReportService } from '../../services/report.service';
 import { descriptionAction } from '../../state/description/description.action';
 import { initialBugDescriptionValue } from '../../state/description/description.reducer';
-import { addReport } from '../../state/report/report.action';
+import { addReport, updateReport } from '../../state/report/report.action';
 
 @Component({
   selector: 'report-details',
@@ -122,22 +122,16 @@ export class ReportDetailsComponent
   onSubmit(): void {
     this.fg.markAllAsTouched();
     const report = this._generateData(this.fg.getRawValue());
-     this.store.dispatch(addReport({ report }));
     if (!this.fg.invalid) {
       this._resetForm();
-
-      // if (this.type === 'update') {
-      //   this.reportService
-      //     .updateReport(this.index, description)
-      //     .subscribe((data) => {
-      //       this.closeModal.emit(true);
-      //     });
-      // } else {
-      //   this.reportService
-      //     .postData(this._generateData(description))
-      //     .subscribe((data) => {
-      //     });
-      // }
+      if (this.type === 'update') {
+        this.store.dispatch(
+          updateReport({ report: report, rIndex: this.index })
+        );
+        this.closeModal.emit(true);
+      } else {
+        this.store.dispatch(addReport({ report }));
+      }
       this.router.navigate(['bug/list']);
     }
   }
