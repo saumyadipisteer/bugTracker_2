@@ -18,6 +18,11 @@ import {
   map,
   Subscription,
 } from 'rxjs';
+import { CommonService } from 'src/app/services/common.service';
+import { Description } from '../../interface/description';
+import { ReportService } from '../../services/report.service';
+import { descriptionAction } from '../../state/description/description.action';
+import { addReport } from '../../state/report/report.action';
 // import { Report } from 'src/app/interface/report';
 // import { Details, User } from 'src/app/interface/user';
 // import { UserService } from 'src/app/services/user.service';
@@ -52,7 +57,9 @@ export class ReportDetailsComponent
   fg: FormGroup;
   constructor(
     private store: Store,
-    private router: Router
+    private router: Router,
+    private reportService: ReportService,
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -120,12 +127,18 @@ export class ReportDetailsComponent
   onSubmit(): void {
     this.fg.markAllAsTouched();
     const description = this._generateData(this.fg.getRawValue());
-    const report = [description];
-    // this.store.dispatch(descriptionAction({ description }));
-    // this.store.dispatch(addReport({ report }));
+    const report: Description[] = [description];
+    this.store.dispatch(descriptionAction({ description }));
+    this.store.dispatch(addReport({ report }));
+
     if (!this.fg.invalid) {
       this._resetForm();
-      this.router.navigate(['bugList']);
+      this.reportService
+        .postData(this._generateData(description))
+        .subscribe((data) => {
+          console.log(data);
+        });
+      this.router.navigate(['bug/list']);
     }
   }
 
@@ -155,7 +168,7 @@ export class ReportDetailsComponent
       severity: data.severity,
       describeTheBug: data.describeTheBug,
       user: user,
-      // createdOn: this.userService.generateDate(),
+      createdOn: this.commonService.generateDate(),
     };
   }
 

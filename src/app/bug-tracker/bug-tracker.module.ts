@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
 import { BugTrackerRoutingModule } from './bug-tracker-routing.module';
 import { BugTrackerComponent } from './bug-tracker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +19,9 @@ import { BugReportComponent } from './create-bug-report/create-bug-report.compon
 import { ReportDetailsComponent } from './create-bug-report/report-details/report-details.component';
 import { BugListComponent } from './bug-list/bug-list.component';
 import { BugListTableComponent } from './bug-list/bug-list-table/bug-list-table.component';
+import { StoreModule } from '@ngrx/store';
+import { descriptionReducer } from './state/description/description.reducer';
+import { reportReducer } from './state/report/report.reduce';
 
 const primengModule = [
   ButtonModule,
@@ -45,6 +49,8 @@ const primengModule = [
     ReactiveFormsModule,
     FormsModule,
     ...primengModule,
+    StoreModule.forFeature('description',descriptionReducer),
+    StoreModule.forFeature('report',reportReducer)
   ],
 })
 export class BugTrackerModule {}

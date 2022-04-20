@@ -11,7 +11,7 @@ export enum userActionType {
 
 export const userLoginAction = createAction(
     userActionType.LOGIN,
-    props<{user:User}>()
+    props<{user:any}>()
 )
 
 export const userLoginErrorAction = createAction(
@@ -24,3 +24,7 @@ export const userLoginCompleteAction = createAction(
     props<{data: any}>()
 )
 
+export const userLogout = createAction(
+    userActionType.LOGGEDOUT,
+    props<{data:any}>()
+)

@@ -1,22 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../interface/user';
+import { environment } from 'src/environments/environment.prod';
+import { ResponseUserData, User } from '../interface/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  url:string = `http://localhost:3000/`; 
-  constructor(private http: HttpClient) { }
+  private _url: string = `${environment.apiUrl}`;
+  constructor(private http: HttpClient) {}
 
-
-  postUserData(data: User):Observable<User>{
-    return this.http.post<User>(`${this.url}user`,data);
+  postUserData(data: User): Observable<ResponseUserData> {
+    return this.http.post<ResponseUserData>(`${this._url}user`, data);
   }
 
-  postNewUser(data: User):Observable<User>{
-    return this.http.post<User>(`${this.url}createUser`,data);
+  postNewUser(data: User): Observable<ResponseUserData> {
+    return this.http.post<ResponseUserData>(`${this._url}createUser`, data);
   }
-
 }

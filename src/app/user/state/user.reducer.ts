@@ -5,33 +5,24 @@ import {
   userActionType,
   userLoginErrorAction,
   userLoginCompleteAction,
+  userLogout,
 } from './user.action';
 
 export const initialUserValue: UserState = {
-  user: { password: '', username: '' },
+  user: JSON.parse(localStorage.getItem('user') || '{}')?.user, // TODO- fetch from localstorage
   errorMessage: '',
   hasError: false,
-  isLoggedIn: false,
-  isLoading: false,
+  loggedIn: JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn,
 };
 
 export const userReducer = createReducer(
   initialUserValue,
   on(userLoginAction, (state, { user }) => ({
     ...state,
-    user: user,
-    isLoading: true,
+    ...user,
   })),
-  on(userLoginErrorAction, (state, { message }) => ({
+  on(userLogout, (state, { data }) => ({
     ...state,
-    errorMessage: message,
-    hasError: true,
-    isLoading: false
-  })),
-  on(userLoginCompleteAction, (state, { data }) => ({
-    ...state,
-    user: data,
-    isLoggedIn: true,
-    isLoading: false
-  })),
+    ...data,
+  }))
 );

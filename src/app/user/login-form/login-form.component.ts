@@ -8,8 +8,11 @@ import {
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
+import { UserState } from '../interface/user';
+
 // import { Fields } from 'src/app/interface/report';
 import { UserService } from '../services/user.service';
+import { userLoginAction } from '../state/user.action';
 // import { userLogin } from 'src/app/state/user-state/user.action';
 
 @Component({
@@ -86,26 +89,16 @@ export class LoginFormComponent implements OnInit {
   onSubmit(): void {
     this.fg.markAllAsTouched();
     //const status = this.userService.getUser(this.fg.getRawValue()).status;
-    this.userService.postUserData(this.fg.getRawValue()).subscribe(
-      data=>{console.log(data)}
-    )
-    // if (status !== 200) {
-    //   this.messageService.add({
-    //     severity: 'error',
-    //     summary: 'Invalid credentails',
-    //     detail: 'Wrong password or username',
-    //   });
-    //   this.router.navigate(['/user/signin']);
-    // } else {
-    //   this.router.navigate(['']);
-    //   this.store.dispatch(
-    //     userLogin({
-    //       username: this.fg.getRawValue()?.username,
-    //       status: true,
-    //       timestamp: `${this.userService.generateDate()} ${this.userService.generateTime()}`,
-    //     })
-    //   );
-    // }
+    let user: UserState;
+    this.userService.postUserData(this.fg.getRawValue()).subscribe((data) => {
+      user = data.body
+      
+      this.store.dispatch(userLoginAction({ user }));
+    });
+
+    if(!this.fg.invalid){
+      this.router.navigate(['']);
+    }
 
     this.fg.reset();
   }

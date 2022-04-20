@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
+  constructor(private store: Store) {}
   isLoggedIn$: Observable<boolean>;
 
   ngOnInit(): void {
-    this.defaultUser();
-    // this.userService.setLoginStatus();
-    // this.isLoggedIn$ = this.store.pipe(
-    //   select(isLoggedin)
-    // )
-    
+    //this.defaultUser();
+    this.isLoggedIn$ = of(
+      JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
+    );
   }
 
   /**
@@ -25,8 +24,14 @@ export class HomeComponent implements OnInit {
    * @returns `void`
    */
   private defaultUser(): void {
-   // localStorage.setItem('users', JSON.stringify(this.userService.newUser));
-    
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        user: '',
+        loggedIn: false,
+        errorMessage: '',
+        hasError: false,
+      })
+    );
   }
-
 }

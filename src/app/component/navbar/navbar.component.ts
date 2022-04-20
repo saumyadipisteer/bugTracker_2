@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { map, Observable, of } from 'rxjs';
+import { userLoginAction, userLogout } from 'src/app/user/state/user.action';
+import { initialUserValue } from 'src/app/user/state/user.reducer';
 
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   routes = [];
 
   isLoggedIn$: Observable<boolean>;
-  constructor( private store: Store) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.userLoggedIn();
@@ -19,11 +21,25 @@ export class NavbarComponent implements OnInit {
   }
 
   userLoggedIn() {
-    // this.isLoggedIn$ = this.store.pipe(select(isLoggedin));
+    // this.store.dispatch(userLoginAction(initialUserValue))
+    this.isLoggedIn$ =
+      of(JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn);
+
+      this.isLoggedIn$.subscribe(data=>console.log(data))
   }
 
   userLoggedOut() {
     // this.userService.postUserLoggedOut();
-    //this.store.dispatch(userLogout({ status: false }));
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        user: '',
+        loggedIn: false,
+        errorMessage: '',
+        hasError: false,
+      })
+    );
+    const data = initialUserValue;
+    this.store.dispatch(userLogout({ data }));
   }
 }

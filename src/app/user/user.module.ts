@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
@@ -10,6 +10,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './state/user.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { LoginEffects } from './state/user.effects';
+
 
 const primengModule = [InputTextModule, ToastModule, ButtonModule];
 @NgModule({
@@ -20,7 +25,16 @@ const primengModule = [InputTextModule, ToastModule, ButtonModule];
     ReactiveFormsModule,
     FormsModule,
     ...primengModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forFeature('login', userReducer),
+    EffectsModule.forFeature([LoginEffects])
   ],
 })
-export class UserModule {}
+export class UserModule {
+  // static forRoot(): ModuleWithProviders<any> {
+  //   return {
+  //     ngModule: UserModule,
+  //     providers: [AuthGuard],
+  //   };
+  // }
+}

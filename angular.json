@@ -110,5 +110,8 @@
       }
     }
   },
-  "defaultProject": "Bug-tracker"
+  "defaultProject": "Bug-tracker",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
