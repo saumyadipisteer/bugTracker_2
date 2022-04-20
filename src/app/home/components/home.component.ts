@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { map, Observable, of } from 'rxjs';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'home',
@@ -8,14 +9,15 @@ import { map, Observable, of } from 'rxjs';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private commonService: CommonService ) {}
   isLoggedIn$: Observable<boolean>;
 
   ngOnInit(): void {
     //this.defaultUser();
-    this.isLoggedIn$ = of(
-      JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
+    this.commonService.checkUser.next(
+      !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
     );
+    this.isLoggedIn$ = this.commonService.loginStaus$;
   }
 
   /**

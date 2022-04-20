@@ -87,3 +87,100 @@ module.exports.createUser = (req, res, next) => {
     }
   );
 };
+
+module.exports.createReports = (req, res, next) => {
+  fs.readFile(
+    path.join(__dirname, "../data/reports.json"),
+    "utf8",
+    (err, data) => {
+      const reports = JSON.parse(data)?.reports;
+      reports.push(req.body);
+      fs.writeFile(
+        path.join(__dirname, "../data/reports.json"),
+        JSON.stringify({ reports: reports }),
+        (err) => {
+          if (err) {
+            return res.send({
+              status: "Ok",
+              statuCode: 404,
+              message: "Database not found...",
+            });
+          } else {
+            return res.send({
+              status: "Ok",
+              statuCode: 200,
+              message: "New report created.",
+            });
+          }
+        }
+      );
+    }
+  );
+ 
+ next();
+};
+
+module.exports.getAllReports = (req, res, next) => {
+  fs.readFile(
+    path.join(__dirname, "../data/reports.json"),
+    "utf8",
+    (err, data) => {
+      if (err) {
+        return res.send({
+          status: "Ok",
+          statuCode: 200,
+          message: "Database not found",
+          payload: []
+        });
+      } else {
+        const reports = JSON.parse(data)?.reports;
+        return res.send({
+          status: "Ok",
+          statuCode: 200,
+          message: "All reports fetched!",
+          payload: reports,
+        });
+      }
+    }
+  );
+}
+
+module.exports.updateReport = (req,res,next)=>{
+
+  fs.readFile(
+    path.join(__dirname, "../data/reports.json"),
+    "utf8",
+    (err, data) => {
+      if (err) {
+        return res.send({
+          status: "Ok",
+          statuCode: 200,
+          message: "Database not found",
+          payload: []
+        });
+      } else {
+        const reports = JSON.parse(data)?.reports;
+        reports[req.body?.index] = req.body?.data
+        fs.writeFile(
+          path.join(__dirname, "../data/reports.json"),
+          JSON.stringify({ reports: reports }),
+          (err) => {
+            if (err) {
+              return res.send({
+                status: "Ok",
+                statuCode: 404,
+                message: "Database not found...",
+              });
+            } else {
+              return res.send({
+                status: "Ok",
+                statuCode: 200,
+                message: "Report updated!",
+              });
+            }
+          }
+        )
+      }
+    }
+  );
+}

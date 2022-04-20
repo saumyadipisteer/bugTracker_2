@@ -94,6 +94,9 @@ export class LoginFormComponent implements OnInit {
       user = data.body
       
       this.store.dispatch(userLoginAction({ user }));
+      this.router.navigate(['']).then(()=>{
+        window.location.reload();
+      });
     });
 
     if(!this.fg.invalid){

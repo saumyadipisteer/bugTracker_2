@@ -12,8 +12,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
 import { BugReportComponent } from './create-bug-report/create-bug-report.component';
 import { ReportDetailsComponent } from './create-bug-report/report-details/report-details.component';
@@ -33,6 +33,7 @@ const primengModule = [
   CalendarModule,
   InputTextareaModule,
   DynamicDialogModule,
+  OverlayPanelModule,
 ];
 
 @NgModule({
@@ -52,5 +53,6 @@ const primengModule = [
     StoreModule.forFeature('description',descriptionReducer),
     StoreModule.forFeature('report',reportReducer)
   ],
+  providers:[DynamicDialogConfig,DynamicDialogRef]
 })
 export class BugTrackerModule {}

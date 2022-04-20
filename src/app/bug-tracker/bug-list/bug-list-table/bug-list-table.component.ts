@@ -7,6 +7,9 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
+import { BugReportComponent } from '../../create-bug-report/create-bug-report.component';
+import { ReportService } from '../../services/report.service';
+import { descriptionAction } from '../../state/description/description.action';
 // import { IngredientListComponent } from '../../ingredient/ingredient-list/ingredient-list.component';
 // import { ReportService } from 'src/app/services/report.service';
 // import { Report } from 'src/app/interface/report';
@@ -30,21 +33,30 @@ export class BugListTableComponent implements OnInit {
   ref: DynamicDialogRef;
   constructor(
     private dialogService: DialogService,
-    // private reportService: ReportService,
+    private reportService: ReportService,
     private store: Store
   ) {}
 
   ngOnInit(): void {
-    // this.reportService.getReports().subscribe((reports) => {
-    //   this.reports = reports;
-    // });
+    this.reportService.getReports().subscribe((reports) => {
+      this.reports = reports['payload'];
+      
+    });
   }
 
-  viewBugReport(description: any) {
-    // this.store.dispatch(descriptionAction({ description }));
-    // this.ref = this.dialogService.open(CreateBugReportComponent, {
-    //   width: '40%',
-    //   data: { report: description },
-    // });
+  viewBugReport(description: any, index: number) {
+    this.store.dispatch(descriptionAction({ description }));
+    this.ref = this.dialogService.open(BugReportComponent, {
+      width: '40%',
+      showHeader: false,
+      data: { report: description, type: 'update', index: index },
+      baseZIndex: 999999999
+    });
+    this.ref.onClose.subscribe(()=>{
+      this.reportService.getReports().subscribe((reports) => {
+        this.reports = reports['payload'];
+        console.log(reports)
+      })
+    })
   }
 }

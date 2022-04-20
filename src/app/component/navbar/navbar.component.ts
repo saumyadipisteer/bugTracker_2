@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { map, Observable, of } from 'rxjs';
+import { CommonService } from 'src/app/services/common.service';
 import { userLoginAction, userLogout } from 'src/app/user/state/user.action';
 import { initialUserValue } from 'src/app/user/state/user.reducer';
 
@@ -13,19 +14,20 @@ export class NavbarComponent implements OnInit {
   routes = [];
 
   isLoggedIn$: Observable<boolean>;
-  constructor(private store: Store) {}
+  constructor(private store: Store, private commonService: CommonService) {}
 
   ngOnInit(): void {
     this.userLoggedIn();
+    this.commonService.checkUser.next(
+      !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
+    );
     // this.userService.setLoginStatus();
   }
 
   userLoggedIn() {
     // this.store.dispatch(userLoginAction(initialUserValue))
-    this.isLoggedIn$ =
-      of(JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn);
 
-      this.isLoggedIn$.subscribe(data=>console.log(data))
+    this.isLoggedIn$ = this.commonService.loginStaus$;
   }
 
   userLoggedOut() {

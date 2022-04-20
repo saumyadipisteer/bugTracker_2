@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { descriptionSelector } from '../state/description/description.selector';
 // import { WidgetField } from '../interface/common';
 // import { Description } from '../interface/description';
 // import { descriptionSelector } from '../state/description/description.selector';
@@ -9,7 +10,6 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
   selector: 'app-create-bug-report',
   templateUrl: './create-bug-report.component.html',
   styleUrls: ['./create-bug-report.component.scss'],
-  providers:[DynamicDialogConfig]
 })
 export class BugReportComponent implements OnInit {
   fields: any = {
@@ -42,13 +42,18 @@ export class BugReportComponent implements OnInit {
   };
   severityOptions: string[] = ['--Select--', 'Low', 'Medium', 'High']; //- TODO: must come from an API
   statusOptions: string[] = ['--Select--', 'Open', 'TBD']; //- TODO: More option for depending on role
-  constructor(private config: DynamicDialogConfig, private store: Store) {}
+  constructor(private config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, private store: Store) {}
   description: any;
+  type: string;
+  index: number;
   ngOnInit(): void {
-    console.log(this.config.data?.report)
+    this.description = this.config.data?.report;
+    this.type = this.config.data?.type;
+    this.index = this.config.data?.index;
+    
+  }
 
-    // this.store.select(descriptionSelector).subscribe((description) => {
-    //   this.description = description;
-    // });
+  closeModal(){
+    this.dialogRef.close();
   }
 }

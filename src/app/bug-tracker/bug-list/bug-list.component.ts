@@ -10,6 +10,7 @@ export class BugListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

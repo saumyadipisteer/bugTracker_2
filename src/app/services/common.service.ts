@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommonService {
+  checkUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
+  );
 
-  constructor() { }
+  loginStaus$ = this.checkUser.asObservable();
+  constructor() {}
 
   /**
    * Generates date
    * @returns `string`
    */
-   generateDate(): string {
+  generateDate(): string {
     const day = [
       'Sunday',
       'Monday',
@@ -22,7 +27,7 @@ export class CommonService {
       'Saturday',
     ];
     const date = `${day[new Date().getDay()]} ${this.pad(
-      new Date().getMonth()+1
+      new Date().getMonth() + 1
     )} ${new Date().getFullYear()}`;
 
     return date;

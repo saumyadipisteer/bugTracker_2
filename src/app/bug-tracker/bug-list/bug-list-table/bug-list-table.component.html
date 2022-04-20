@@ -36,7 +36,7 @@
       <td>{{ report?.createdOn }}</td>
       <td>dddd mm, yyyy</td>
       <td>
-        <!-- <button
+        <button
           pButton
           icon="pi pi-ellipsis-v"
           class="p-button-rounded p-button-text"
@@ -44,14 +44,14 @@
         ></button>
         <p-overlayPanel #op [style]="{ width: '150px' }">
           <ul class="overlay__menu">
-            <li class="overlay__menu-item" (click)="viewBugReport(report)">
-              <a class="overlay__menu-item--link" href="javascript:void(0)">View</a>
+            <li class="overlay__menu-item" (click)="viewBugReport(report, rowIndex)">
+              <a class="overlay__menu-item--link" href="javascript:void(0)">Update</a>
             </li>
-            <li class="overlay__menu-item">
+            <!-- <li class="overlay__menu-item">
               <a href="javascript:void(0)" class="overlay__menu-item--link">Update</a>
-            </li>
+            </li> -->
           </ul>
-        </p-overlayPanel> -->
+        </p-overlayPanel>
       </td>
     </tr>
   </ng-template>

@@ -1,12 +1,1 @@
-{
-  "reports": [
-    {
-      "subject": "Fields are not working",
-      "status": "Open",
-      "severity": "Low",
-      "describeTheBug": null,
-      "username": "onekilogram",
-      "createdOn": "Tuesday 4 2022"
-    }
-  ]
-}
+{"reports":[{"subject":"Fields are always valid","status":"Open","severity":"Low","describeTheBug":null,"user":"onekilobyte","createdOn":"Wednesday 04 2022"},{"subject":"Dropdown not working","status":"Open","severity":"Medium","describeTheBug":null,"user":"onekilobyte","createdOn":"Wednesday 04 2022"},{"subject":"Background color needs change","status":"Open","severity":"Medium","describeTheBug":null,"user":"onekilogram","createdOn":"Wednesday 04 2022"},{"subject":"Radio button not working","status":"Open","severity":"High","describeTheBug":null,"user":"onekilobyte","createdOn":"Wednesday 04 2022"},{"subject":"Button not disabled","status":"Open","severity":"Medium","describeTheBug":null,"user":"onekilobyte","createdOn":"Wednesday 04 2022"},{"subject":"Form value not submitting","status":"Open","severity":"High","describeTheBug":null,"user":"onekilobyte","createdOn":"Wednesday 04 2022"}]}

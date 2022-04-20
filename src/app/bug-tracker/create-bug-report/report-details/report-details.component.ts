@@ -2,9 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,23 +21,12 @@ import {
   Subscription,
 } from 'rxjs';
 import { CommonService } from 'src/app/services/common.service';
+import { Fields } from '../../interface/common';
 import { Description } from '../../interface/description';
 import { ReportService } from '../../services/report.service';
 import { descriptionAction } from '../../state/description/description.action';
+import { initialBugDescriptionValue } from '../../state/description/description.reducer';
 import { addReport } from '../../state/report/report.action';
-// import { Report } from 'src/app/interface/report';
-// import { Details, User } from 'src/app/interface/user';
-// import { UserService } from 'src/app/services/user.service';
-// import {
-//   currentUser,
-//   isLoggedin,
-// } from 'src/app/state/user-state/user.selector';
-// import { Fields } from '../../interface/common';
-// import { Description } from '../../interface/description';
-// import { descriptionAction } from '../../state/description/description.action';
-// import { initialBugDescriptionValue } from '../../state/description/description.reducer';
-// import { descriptionSelector } from '../../state/description/description.selector';
-// import { addReport } from '../../state/report/report.action';
 
 @Component({
   selector: 'report-details',
@@ -48,8 +39,11 @@ export class ReportDetailsComponent
 {
   @Input() severityOptions: string[];
   @Input() statusOptions: string[];
-  @Input() fields: any;
-  @Input() description: any;
+  @Input() fields: Fields;
+  @Input() description: Description;
+  @Input() type: string;
+  @Input() index: number;
+  @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild('subject') subjectField: ElementRef;
   @ViewChild('status') statusField: ElementRef;
   private _subscription: Subscription = new Subscription();
@@ -64,6 +58,7 @@ export class ReportDetailsComponent
 
   ngOnInit(): void {
     this.fg = this.createForm();
+
     if (this.description) {
       this.fg.patchValue(this.description);
     }
@@ -87,8 +82,8 @@ export class ReportDetailsComponent
 
     this._subscription.add(
       keyUp$.subscribe((value) => {
-        // let description: Description = this.fg.getRawValue();
-        // this.store.dispatch(descriptionAction({ description }));
+        let description: Description = this.fg.getRawValue();
+        this.store.dispatch(descriptionAction({ description }));
       })
     );
   }
@@ -98,8 +93,8 @@ export class ReportDetailsComponent
    * @returns `void`
    */
   updateDescriptionStore(value: string): void {
-    // let description: Description = this.fg.getRawValue();
-    // this.store.dispatch(descriptionAction({ description }));
+    let description: Description = this.fg.getRawValue();
+    this.store.dispatch(descriptionAction({ description }));
   }
 
   /**
@@ -133,11 +128,21 @@ export class ReportDetailsComponent
 
     if (!this.fg.invalid) {
       this._resetForm();
-      this.reportService
-        .postData(this._generateData(description))
-        .subscribe((data) => {
-          console.log(data);
-        });
+
+      if (this.type === 'update') {
+        this.reportService
+          .updateReport(this.index, description)
+          .subscribe((data) => {
+            console.log(data);
+            this.closeModal.emit(true);
+          });
+      } else {
+        this.reportService
+          .postData(this._generateData(description))
+          .subscribe((data) => {
+            console.log(data);
+          });
+      }
       this.router.navigate(['bug/list']);
     }
   }
@@ -148,8 +153,8 @@ export class ReportDetailsComponent
    */
   private _resetForm(): void {
     this.fg.reset();
-    // const description = initialBugDescriptionValue;
-    // this.store.dispatch(descriptionAction({ description }));
+    const description = initialBugDescriptionValue;
+    this.store.dispatch(descriptionAction({ description }));
   }
 
   /**
@@ -158,10 +163,10 @@ export class ReportDetailsComponent
    * @returns `Description`
    */
   private _generateData(data: any): any {
-    let user: string | undefined;
-    // this.store.select(currentUser).subscribe((login) => {
-    //   user = login.username;
-    // });
+    let user: string | undefined = JSON.parse(
+      localStorage.getItem('user') || '{}'
+    )?.user;
+
     return {
       subject: data.subject,
       status: data.status,

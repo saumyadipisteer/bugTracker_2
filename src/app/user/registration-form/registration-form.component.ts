@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { userLoginAction } from '../state/user.action';
 // import { Fields } from 'src/app/interface/report';
 // import { UserCredentials } from 'src/app/interface/user';
 // import { UserService } from 'src/app/services/user.service';
@@ -147,9 +148,12 @@ export class RegistrationFormComponent implements OnInit {
         username: this.fg.getRawValue().username,
         password: this.fg.getRawValue().password,
       })
-      .subscribe((data) => {
-        console.log(data);
+      .subscribe(data=>{
+        
       });
     this.fg.reset();
+    this.router.navigate(['']).then(()=>{
+      window.location.reload();
+    });
   }
 }
