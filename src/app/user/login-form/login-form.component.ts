@@ -88,20 +88,12 @@ export class LoginFormComponent implements OnInit {
 
   onSubmit(): void {
     this.fg.markAllAsTouched();
-    //const status = this.userService.getUser(this.fg.getRawValue()).status;
     let user: UserState;
     this.userService.postUserData(this.fg.getRawValue()).subscribe((data) => {
-      user = data.body
-      
+      user = data.payload
       this.store.dispatch(userLoginAction({ user }));
-      this.router.navigate(['']).then(()=>{
-        window.location.reload();
-      });
+      this.router.navigate([''])
     });
-
-    if(!this.fg.invalid){
-      this.router.navigate(['']);
-    }
 
     this.fg.reset();
   }

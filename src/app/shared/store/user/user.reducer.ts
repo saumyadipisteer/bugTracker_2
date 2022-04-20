@@ -1,14 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-import { User, UserState } from '../interface/user';
-import {
-  userLoginAction,
-  userActionType,
-  userLoginErrorAction,
-  userLoginCompleteAction,
-  userLogout,
-} from './user.action';
 
-export const initialUserValue: UserState = {
+import { userLoginAction, userLogout } from './user.action';
+
+export const initialUserValue: any = {
   user: '', // TODO- fetch from localstorage
   errorMessage: '',
   hasError: false,

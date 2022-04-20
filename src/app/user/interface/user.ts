@@ -21,5 +21,5 @@ export interface ResponseUserData {
   status: string;
   statusCode: number;
   message: string;
-  body: UserState;
+  payload: UserState;
 }

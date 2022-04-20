@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { UserService } from '../services/user.service';
 import { userLoginAction } from '../state/user.action';
 // import { Fields } from 'src/app/interface/report';
@@ -84,7 +85,11 @@ export class RegistrationFormComponent implements OnInit {
 
   fg: FormGroup;
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.fg = this.createForm();
@@ -143,17 +148,21 @@ export class RegistrationFormComponent implements OnInit {
 
   onSubmit(): void {
     this.fg.markAllAsTouched();
+    let user: any;
     this.userService
       .postNewUser({
         username: this.fg.getRawValue().username,
         password: this.fg.getRawValue().password,
       })
-      .subscribe(data=>{
+      .subscribe((data) => {
         
+        if (data?.payload) {
+          console.log(data)
+          user = data?.payload;
+          this.store.dispatch(userLoginAction({ user }));
+          this.router.navigate(['']);
+        }
       });
     this.fg.reset();
-    this.router.navigate(['']).then(()=>{
-      window.location.reload();
-    });
   }
 }

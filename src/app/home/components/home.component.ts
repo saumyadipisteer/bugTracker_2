@@ -14,10 +14,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     //this.defaultUser();
-    this.commonService.checkUser.next(
-      !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
+    
+    this.isLoggedIn$ = this.store.pipe(
+      select((login) => login['user']?.loggedIn)
     );
-    this.isLoggedIn$ = this.commonService.loginStatus$;
   }
 
   /**

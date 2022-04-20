@@ -20,7 +20,7 @@ module.exports.user = (req, res, next) => {
           status: "Ok",
           statuCode: 200,
           message: "Valid credentials!",
-          body: {
+          payload: {
             user: req.body.username,
             loggedIn: true,
             errorMessage: "No error",
@@ -73,6 +73,12 @@ module.exports.createUser = (req, res, next) => {
                 status: "Ok",
                 statuCode: 200,
                 message: "New user account created!",
+                payload: {
+                  user: req.body.username,
+                  loggedIn: true,
+                  errorMessage: "No error",
+                  hasError: false,
+                },
               });
             }
           }
@@ -153,7 +159,7 @@ module.exports.updateReport = (req,res,next)=>{
       if (err) {
         return res.send({
           status: "Ok",
-          statuCode: 200,
+          statuCode: 404,
           message: "Database not found",
           payload: []
         });

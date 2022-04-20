@@ -6,9 +6,7 @@ import { Description } from '../bug-tracker/interface/description';
   providedIn: 'root',
 })
 export class CommonService {
-  checkUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
-  );
+  checkUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   loginStatus$ = this.checkUser.asObservable();
   constructor() {}
