@@ -1,3 +1,5 @@
+import { ArrayType } from "@angular/compiler";
+
 export interface User {
   username: string | null;
   password: string | null;
@@ -17,9 +19,9 @@ export interface UserState {
   hasError: boolean;
 }
 
-export interface ResponseUserData {
+export interface ResponseData {
   status: string;
   statusCode: number;
   message: string;
-  payload: UserState;
+  payload: any;
 }

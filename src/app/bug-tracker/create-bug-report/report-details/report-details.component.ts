@@ -20,7 +20,7 @@ import {
   map,
   Subscription,
 } from 'rxjs';
-import { CommonService } from 'src/app/services/common.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { Fields } from '../../interface/common';
 import { Description } from '../../interface/description';
 import { ReportService } from '../../services/report.service';

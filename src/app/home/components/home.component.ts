@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { map, Observable, of } from 'rxjs';
-import { CommonService } from 'src/app/services/common.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
   selector: 'home',

@@ -12,6 +12,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from 'primeng/api';
 import { userReducer } from './shared/store/user/user.reducer';
+import { reportReducer } from './shared/store/report/report.reduce';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -21,7 +22,7 @@ import { userReducer } from './shared/store/user/user.reducer';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    StoreModule.forRoot({user: userReducer},{}),
+    StoreModule.forRoot({ user: userReducer, report: reportReducer }, {}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

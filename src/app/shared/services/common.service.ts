@@ -1,19 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Description } from '../bug-tracker/interface/description';
+import { ResponseData } from 'src/app/user/interface/user';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonService {
+  private _url: string = environment.apiUrl;
   checkUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   loginStatus$ = this.checkUser.asObservable();
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  // getReports(): Observable<Description[]> {
-  //   return this.http.get<Description[]>(`${this._url}reports`);
-  // }
+  getReports(): Observable<ResponseData> {
+    return this.http.get<ResponseData>(`${this._url}reports`);
+  }
 
   /**
    * Generates date

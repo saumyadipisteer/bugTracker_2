@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { map, Observable, of } from 'rxjs';
-import { CommonService } from 'src/app/services/common.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { userLoginAction, userLogout } from 'src/app/user/state/user.action';
 import { initialUserValue } from 'src/app/user/state/user.reducer';
 

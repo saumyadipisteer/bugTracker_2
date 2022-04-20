@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { CommonService } from './shared/services/common.service';
+import { addReport } from './shared/store/report/report.action';
 import { userLoginAction } from './shared/store/user/user.action';
 
 @Component({
@@ -9,11 +11,18 @@ import { userLoginAction } from './shared/store/user/user.action';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Bug-tracker';
-  constructor(private store: Store) {}
+  constructor(private store: Store, private commonService: CommonService) {}
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage?.getItem('user') || '{}');
     this.store.dispatch(userLoginAction({ user }));
+
+    this.commonService.getReports().subscribe((data) => {
+      if (data?.payload) {
+        const report = data.payload;
+        this.store.dispatch(addReport({ report }));
+      }
+    });
   }
 
   ngOnDestroy(): void {}
