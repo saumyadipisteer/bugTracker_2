@@ -9,7 +9,7 @@ export enum reportActionType {
 
 export const addReport = createAction(
   reportActionType.addReport,
-  props<{ report: Description[] }>()
+  props<{ report: Description }>()
 );
 
 export const updteReport = createAction(

@@ -24,6 +24,8 @@ import { StoreModule } from '@ngrx/store';
 import { descriptionReducer } from './state/description/description.reducer';
 import { reportReducer } from './state/report/report.reduce';
 import { ConfirmationService } from 'primeng/api';
+import { EffectsModule } from '@ngrx/effects';
+import { ReportsEffect } from './state/report/report.effects';
 
 const primengModule = [
   ButtonModule,
@@ -54,7 +56,8 @@ const primengModule = [
     FormsModule,
     ...primengModule,
     StoreModule.forFeature('description',descriptionReducer),
-    StoreModule.forFeature('report',reportReducer)
+    StoreModule.forFeature('report',reportReducer),
+    EffectsModule.forFeature([ReportsEffect])
   ],
   providers:[DynamicDialogConfig,DynamicDialogRef, ConfirmationService]
 })
