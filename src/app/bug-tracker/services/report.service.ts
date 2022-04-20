@@ -22,4 +22,8 @@ export class ReportService {
   updateReport(index:number,data:Description){
     return this.http.post<Description[]>(`${this._url}updateReport`, {index,data})
   }
+
+  deleteReport(index:number):Observable<any>{
+    return this.http.post<any>(`${this._url}deleteReport`,{index})
+  }
 }

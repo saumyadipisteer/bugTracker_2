@@ -47,12 +47,13 @@
             <li class="overlay__menu-item" (click)="viewBugReport(report, rowIndex)">
               <a class="overlay__menu-item--link" href="javascript:void(0)">Update</a>
             </li>
-            <!-- <li class="overlay__menu-item">
-              <a href="javascript:void(0)" class="overlay__menu-item--link">Update</a>
-            </li> -->
+            <li class="overlay__menu-item delete" (click)="confirmDelete(rowIndex)">
+              <a href="javascript:void(0)" class="overlay__menu-item--link">Delete</a>
+            </li>
           </ul>
         </p-overlayPanel>
       </td>
     </tr>
   </ng-template>
 </p-table>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>

@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { BugReportComponent } from './create-bug-report/create-bug-report.component';
 import { ReportDetailsComponent } from './create-bug-report/report-details/report-details.component';
 import { BugListComponent } from './bug-list/bug-list.component';
@@ -22,6 +23,7 @@ import { BugListTableComponent } from './bug-list/bug-list-table/bug-list-table.
 import { StoreModule } from '@ngrx/store';
 import { descriptionReducer } from './state/description/description.reducer';
 import { reportReducer } from './state/report/report.reduce';
+import { ConfirmationService } from 'primeng/api';
 
 const primengModule = [
   ButtonModule,
@@ -34,6 +36,7 @@ const primengModule = [
   InputTextareaModule,
   DynamicDialogModule,
   OverlayPanelModule,
+  ConfirmDialogModule
 ];
 
 @NgModule({
@@ -53,6 +56,6 @@ const primengModule = [
     StoreModule.forFeature('description',descriptionReducer),
     StoreModule.forFeature('report',reportReducer)
   ],
-  providers:[DynamicDialogConfig,DynamicDialogRef]
+  providers:[DynamicDialogConfig,DynamicDialogRef, ConfirmationService]
 })
 export class BugTrackerModule {}

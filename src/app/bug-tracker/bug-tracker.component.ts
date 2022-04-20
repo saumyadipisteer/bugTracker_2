@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportService } from './services/report.service';
 
 @Component({
   selector: 'app-bug-tracker',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BugTrackerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private reportService: ReportService) { }
 
   ngOnInit(): void {
   }

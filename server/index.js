@@ -14,6 +14,7 @@ server.post("/createUser", userController.createUser);
 server.post("/report", userController.createReports);
 server.get("/reports", userController.getAllReports);
 server.post("/updateReport", userController.updateReport);
+server.post("/deleteReport",userController.deleteReports);
 
 server.use(router);
 server.listen(port, () => {

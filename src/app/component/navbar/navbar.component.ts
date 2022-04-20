@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
   userLoggedIn() {
     // this.store.dispatch(userLoginAction(initialUserValue))
 
-    this.isLoggedIn$ = this.commonService.loginStaus$;
+    this.isLoggedIn$ = this.commonService.loginStatus$;
   }
 
   userLoggedOut() {

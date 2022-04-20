@@ -146,7 +146,6 @@ module.exports.getAllReports = (req, res, next) => {
 }
 
 module.exports.updateReport = (req,res,next)=>{
-
   fs.readFile(
     path.join(__dirname, "../data/reports.json"),
     "utf8",
@@ -161,6 +160,47 @@ module.exports.updateReport = (req,res,next)=>{
       } else {
         const reports = JSON.parse(data)?.reports;
         reports[req.body?.index] = req.body?.data
+        fs.writeFile(
+          path.join(__dirname, "../data/reports.json"),
+          JSON.stringify({ reports: reports }),
+          (err) => {
+            if (err) {
+              return res.send({
+                status: "Ok",
+                statuCode: 404,
+                message: "Database not found...",
+              });
+            } else {
+              return res.send({
+                status: "Ok",
+                statuCode: 200,
+                message: "Report updated!",
+              });
+            }
+          }
+        )
+      }
+    }
+  );
+}
+
+module.exports.deleteReports = (req,res,next)=>{
+  fs.readFile(
+    path.join(__dirname, "../data/reports.json"),
+    "utf8",
+    (err, data) => {
+      if (err) {
+        return res.send({
+          status: "Ok",
+          statuCode: 200,
+          message: "Database not found",
+          payload: []
+        });
+      } else {
+        const reports = JSON.parse(data)?.reports;
+        reports.splice(req.body?.index,1)
+        
+        
         fs.writeFile(
           path.join(__dirname, "../data/reports.json"),
           JSON.stringify({ reports: reports }),

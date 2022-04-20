@@ -133,14 +133,12 @@ export class ReportDetailsComponent
         this.reportService
           .updateReport(this.index, description)
           .subscribe((data) => {
-            console.log(data);
             this.closeModal.emit(true);
           });
       } else {
         this.reportService
           .postData(this._generateData(description))
           .subscribe((data) => {
-            console.log(data);
           });
       }
       this.router.navigate(['bug/list']);

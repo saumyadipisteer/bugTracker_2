@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     this.commonService.checkUser.next(
       !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
     );
-    this.isLoggedIn$ = this.commonService.loginStaus$;
+    this.isLoggedIn$ = this.commonService.loginStatus$;
   }
 
   /**

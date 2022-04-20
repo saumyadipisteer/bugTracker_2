@@ -12,6 +12,11 @@ export const addReport = createAction(
   props<{ report: Description[] }>()
 );
 
+export const updteReport = createAction(
+  reportActionType.updateReport,
+  props<{ report: Description, index: number}>()
+)
+
 export const deleteReport = createAction(
   reportActionType.deleteReport,
   props<{ index: number }>()

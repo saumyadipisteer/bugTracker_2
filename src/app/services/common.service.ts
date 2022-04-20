@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Description } from '../bug-tracker/interface/description';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +10,12 @@ export class CommonService {
     !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
   );
 
-  loginStaus$ = this.checkUser.asObservable();
+  loginStatus$ = this.checkUser.asObservable();
   constructor() {}
+
+  // getReports(): Observable<Description[]> {
+  //   return this.http.get<Description[]>(`${this._url}reports`);
+  // }
 
   /**
    * Generates date

@@ -44,5 +44,12 @@
         color: rgb(54, 53, 53);
     }
   }
+
+  .delete{
+    background-color: rgb(240, 71, 71);
+    & > a{
+      color: #fff;
+    }
+  }
 }
 

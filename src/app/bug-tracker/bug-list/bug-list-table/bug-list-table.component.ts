@@ -34,13 +34,13 @@ export class BugListTableComponent implements OnInit {
   constructor(
     private dialogService: DialogService,
     private reportService: ReportService,
-    private store: Store
+    private store: Store,
+    private confirmService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
     this.reportService.getReports().subscribe((reports) => {
       this.reports = reports['payload'];
-      
     });
   }
 
@@ -50,13 +50,23 @@ export class BugListTableComponent implements OnInit {
       width: '40%',
       showHeader: false,
       data: { report: description, type: 'update', index: index },
-      baseZIndex: 999999999
+      baseZIndex: 999999999,
     });
-    this.ref.onClose.subscribe(()=>{
+    this.ref.onClose.subscribe(() => {
       this.reportService.getReports().subscribe((reports) => {
         this.reports = reports['payload'];
-        console.log(reports)
-      })
-    })
+        console.log(reports);
+      });
+    });
+  }
+
+  confirmDelete(index: number): void {
+    this.confirmService.confirm({
+      message: 'Are you sure you want to delete this report?',
+      accept: () => {
+        this.reportService.deleteReport(index).subscribe()
+        
+      },
+    });
   }
 }

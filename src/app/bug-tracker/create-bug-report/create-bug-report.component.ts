@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ReportService } from '../services/report.service';
 import { descriptionSelector } from '../state/description/description.selector';
 // import { WidgetField } from '../interface/common';
 // import { Description } from '../interface/description';
@@ -42,7 +43,12 @@ export class BugReportComponent implements OnInit {
   };
   severityOptions: string[] = ['--Select--', 'Low', 'Medium', 'High']; //- TODO: must come from an API
   statusOptions: string[] = ['--Select--', 'Open', 'TBD']; //- TODO: More option for depending on role
-  constructor(private config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, private store: Store) {}
+  constructor(
+    private config: DynamicDialogConfig,
+    private dialogRef: DynamicDialogRef,
+    private store: Store,
+    private reportService: ReportService
+  ) {}
   description: any;
   type: string;
   index: number;
@@ -50,10 +56,12 @@ export class BugReportComponent implements OnInit {
     this.description = this.config.data?.report;
     this.type = this.config.data?.type;
     this.index = this.config.data?.index;
-    
+    this.reportService.getReports().subscribe((report) => {
+      console.log(report);
+    });
   }
 
-  closeModal(){
+  closeModal() {
     this.dialogRef.close();
   }
 }

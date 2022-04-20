@@ -18,6 +18,14 @@
             >Bug Reports</a
           >
         </li>
+        <li class="recipe__navbar-menu--item">
+          <a
+            [routerLink]="'bug/myReports'"
+            class="recipe__navbar-menu--link"
+            routerLinkActive="active"
+            >My Reports</a
+          >
+        </li>
       </div>
       <ng-container *ngIf="!(isLoggedIn$ | async); else showlogout">
         <div class="right__menu">

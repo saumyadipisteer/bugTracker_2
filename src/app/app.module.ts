@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { SharedModule } from 'primeng/api';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -18,6 +19,7 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    SharedModule,
     StoreModule.forRoot({},{}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
