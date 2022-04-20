@@ -2,7 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { User } from "src/app/user/interface/user";
 
 export enum userActionType {
-    LOGIN = "[USER] LOGIN",
+    LOGIN = "[USER] INITIALIZED",
     LOGIN_COMPLETE = "[USER] LOGIN COMPLETE",
     LOGIN_ERROR = "[USER] LOGIN ERROR",
     LOGGEDOUT = "[USER] LOGGEDOUT",

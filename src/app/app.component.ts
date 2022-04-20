@@ -14,9 +14,20 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private commonService: CommonService) {}
 
   ngOnInit(): void {
+    this.initialNGRXStore();
+  }
+
+  private initialNGRXStore():void{
+    this.fetchFromLocal();
+    this.fetchAndStoreReports();
+  }
+
+  private fetchFromLocal(): void {
     const user = JSON.parse(localStorage?.getItem('user') || '{}');
     this.store.dispatch(userLoginAction({ user }));
+  }
 
+  private fetchAndStoreReports(): void {
     this.commonService.getReports().subscribe((data) => {
       if (data?.payload) {
         const report = data.payload;

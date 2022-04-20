@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Description } from '../../interface/description';
 
 export enum reportActionType {
-  addReport = '[REPORT] ADDED',
+  addReport = '[REPORTS] INITIALIZED',
 }
 
 export const addReport = createAction(
