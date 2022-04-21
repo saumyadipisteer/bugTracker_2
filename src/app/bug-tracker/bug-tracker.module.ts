@@ -57,7 +57,8 @@ const primengModule = [
     ...primengModule,
     StoreModule.forFeature('description',descriptionReducer),
     StoreModule.forFeature('report',reportReducer),
-    EffectsModule.forFeature([ReportsEffect])
+    EffectsModule.forFeature([ReportsEffect]),
+    
   ],
   providers:[DynamicDialogConfig,DynamicDialogRef, ConfirmationService]
 })

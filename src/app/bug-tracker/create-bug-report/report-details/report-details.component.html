@@ -12,36 +12,67 @@
   <ng-template pTemplate="content">
     <form [formGroup]="fg" class="details__form" (ngSubmit)="onSubmit()">
       <div class="form__control">
-        <label for="title">Subject <span class="invalid">*</span></label>
-        <input type="text" pInputText #subject formControlName="subject" />
+        <label for="subject"
+          >{{ fields["subject"]?.label }}
+          <span class="invalid" *ngIf="fields['subject']?.required"
+            >*</span
+          ></label
+        >
+        <input
+          type="text"
+          pInputText
+          #subject
+          formControlName="subject"
+          id="subject"
+        />
       </div>
       <div class="form__control-group">
         <div class="form__control">
-          <label for="title">Severity <span class="invalid">*</span></label>
+          <label for="severity"
+            >{{ fields["severity"]?.label }}
+            <span class="invalid" *ngIf="fields['severity']?.required"
+              >*</span
+            ></label
+          >
           <p-dropdown
             [options]="severityOptions"
-            [style]="{ width: '50%', minWidth:'272px' }"
+            [style]="{ width: '50%', minWidth: '272px' }"
             formControlName="severity"
+            id="severity"
           ></p-dropdown>
         </div>
         <div class="form__control">
-          <label for="title">Status<span class="invalid">*</span></label>
+          <label for="status"
+            >{{ fields["status"]?.label
+            }}<span class="invalid" *ngIf="fields['status']?.required"
+              >*</span
+            ></label
+          >
           <p-dropdown
             (onChange)="updateDescriptionStore($event.value)"
             [options]="statusOptions"
-            [style]="{ width: '50%', minWidth:'272px' }"
+            [style]="{ width: '50%', minWidth: '272px' }"
             formControlName="status"
+            id="status"
           ></p-dropdown>
         </div>
       </div>
       <div class="form__control">
         <label for="title"
-          >Describe the bug <span class="invalid">*</span></label
+          >{{ fields["describeTheBug"]?.label }}
+          <span class="invalid" *ngIf="fields['describeTheBug']?.required"
+            >*</span
+          ></label
         >
         <textarea pInputTextarea formControlName="describeTheBug"></textarea>
       </div>
       <div class="form__control">
-        <button type="submit" pButton label="Submit" class="submit__btn"></button>
+        <button
+          type="submit"
+          pButton
+          label="Submit"
+          class="submit__btn"
+        ></button>
       </div>
     </form>
   </ng-template>

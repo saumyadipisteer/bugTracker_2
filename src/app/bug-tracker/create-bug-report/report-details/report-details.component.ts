@@ -58,7 +58,7 @@ export class ReportDetailsComponent
 
   ngOnInit(): void {
     this.fg = this.createForm();
-
+console.log(this.fields["describeTheBug"]?.required)
     if (this.description) {
       this.fg.patchValue(this.description);
     }
@@ -155,7 +155,7 @@ export class ReportDetailsComponent
     let user: string | undefined = JSON.parse(
       localStorage.getItem('user') || '{}'
     )?.user;
-
+      
     return {
       subject: data.subject,
       status: data.status,

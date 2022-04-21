@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ReportService } from '../services/report.service';
-import { descriptionSelector } from '../state/description/description.selector';
-// import { WidgetField } from '../interface/common';
-// import { Description } from '../interface/description';
-// import { descriptionSelector } from '../state/description/description.selector';
+import { currentUsersReportSelector } from '../state/report/report.selector';
+
 
 @Component({
   selector: 'app-create-bug-report',
@@ -56,7 +54,7 @@ export class BugReportComponent implements OnInit {
     this.description = this.config.data?.report;
     this.type = this.config.data?.type;
     this.index = this.config.data?.index;
-  
+    this.store.pipe(select(currentUsersReportSelector('twomegabyte'))).subscribe(data=>console.log(data))
   }
 
   closeModal() {

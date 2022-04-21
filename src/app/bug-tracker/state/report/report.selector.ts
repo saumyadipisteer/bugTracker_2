@@ -1,9 +1,17 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Description } from "../../interface/description"; 
+import { createFeatureSelector, createSelector, props } from '@ngrx/store';
+import { Description } from '../../interface/description';
 
-export const reportFeatureSelector = createFeatureSelector<Description[]>("reports");
+export const reportFeatureSelector =
+  createFeatureSelector<Description[]>('report');
 
-export const reportSelector = createSelector(
-    reportFeatureSelector,
-    (report)=> report
-)
+export const reportsSelector = createSelector(
+  reportFeatureSelector,
+  (report) => report
+);
+
+export const currentUsersReportSelector = (currentUser: string) =>
+  createSelector(reportFeatureSelector, (report) =>
+    report.filter((data) => {
+      return data.user === currentUser;
+    })
+  );
