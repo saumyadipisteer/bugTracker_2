@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { UserState } from '../interface/user';
 
 // import { Fields } from 'src/app/interface/report';
@@ -38,6 +39,10 @@ export class LoginFormComponent implements OnInit {
   };
 
   fg: FormGroup;
+  private _isValid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  isValid$ = this._isValid$.asObservable();
 
   constructor(
     private userService: UserService,
@@ -90,11 +95,14 @@ export class LoginFormComponent implements OnInit {
     this.fg.markAllAsTouched();
     let user: UserState;
     this.userService.postUserData(this.fg.getRawValue()).subscribe((data) => {
-      user = data.payload
-      this.store.dispatch(userLoginAction({ user }));
-      this.router.navigate([''])
+      user = data?.payload;
+      if (user) {
+        this.store.dispatch(userLoginAction({ user }));
+        this.fg.reset();
+        this.router.navigate(['']);
+      } else {
+        this._isValid$.next(true);
+      }
     });
-
-    this.fg.reset();
   }
 }

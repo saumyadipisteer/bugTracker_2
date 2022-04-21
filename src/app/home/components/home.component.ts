@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
     this.isLoggedIn$ = this.store.pipe(
       select((login) => login['user']?.loggedIn)
     );
+
+    this.store.subscribe(store=>store["user"]?.loggedIn)
   }
 
   /**

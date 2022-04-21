@@ -25,6 +25,9 @@
           formControlName="subject"
           id="subject"
         />
+        <div class="invalidMessage" *ngIf="isRequired('subject')">
+          Field is required!
+        </div>
       </div>
       <div class="form__control-group">
         <div class="form__control">
@@ -37,9 +40,13 @@
           <p-dropdown
             [options]="severityOptions"
             [style]="{ width: '50%', minWidth: '272px' }"
+            placeholder="--Select--"
             formControlName="severity"
             id="severity"
           ></p-dropdown>
+          <div class="invalidMessage" *ngIf="isRequired('severity')">
+            Field is required!
+          </div>
         </div>
         <div class="form__control">
           <label for="status"
@@ -53,8 +60,12 @@
             [options]="statusOptions"
             [style]="{ width: '50%', minWidth: '272px' }"
             formControlName="status"
+            placeholder="--Select--"
             id="status"
           ></p-dropdown>
+          <div class="invalidMessage" *ngIf="isRequired('status')">
+            Field is required!
+          </div>
         </div>
       </div>
       <div class="form__control">
@@ -65,6 +76,9 @@
           ></label
         >
         <textarea pInputTextarea formControlName="describeTheBug"></textarea>
+        <div class="invalidMessage" *ngIf="isRequired('describeTheBug')">
+          Field is required!
+        </div>
       </div>
       <div class="form__control">
         <button
@@ -72,6 +86,7 @@
           pButton
           label="Submit"
           class="submit__btn"
+          
         ></button>
       </div>
     </form>

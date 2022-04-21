@@ -35,4 +35,7 @@
 
 .submit__btn{
   margin-top: 20px;
+  &:disabled{
+    cursor: not-allowed;
+  }
 }

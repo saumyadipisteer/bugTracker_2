@@ -39,8 +39,8 @@ export class BugReportComponent implements OnInit {
       },
     },
   };
-  severityOptions: string[] = ['--Select--', 'Low', 'Medium', 'High']; //- TODO: must come from an API
-  statusOptions: string[] = ['--Select--', 'Open', 'TBD']; //- TODO: More option for depending on role
+  severityOptions: string[] = ['Low', 'Medium', 'High']; //- TODO: must come from an API
+  statusOptions: string[] = ['Open', 'TBD']; //- TODO: More option for depending on role
   constructor(
     private config: DynamicDialogConfig,
     private dialogRef: DynamicDialogRef,

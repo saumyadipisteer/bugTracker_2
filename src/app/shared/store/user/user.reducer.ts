@@ -3,10 +3,10 @@ import { createReducer, on } from '@ngrx/store';
 import { userLoginAction, userLogout } from './user.action';
 
 export const initialUserValue: any = {
-  user: '', // TODO- fetch from localstorage
+  user: JSON.parse(localStorage.getItem('user') || '{}')?.user, // TODO- fetch from localstorage
   errorMessage: '',
   hasError: false,
-  loggedIn: false,
+  loggedIn: !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn,
 };
 
 export const userReducer = createReducer(

@@ -1,9 +1,1 @@
-{
-  "userData": [
-    { "username": "onekilogram", "password": "1Kilogr@m" },
-    { "username": "twokilogram", "password": "2Kilogr@m" },
-    { "username": "onekilobyte", "password": "1K!lobyte" },
-    { "username": "twogigabyte", "password": "2Gig@byte" },
-    { "username": "twomegabyte", "password": "2Meg@byte" }
-  ]
-}
+{"userData":[{"username":"onekilogram","password":"1Kilogr@m"},{"username":"twokilogram","password":"2Kilogr@m"},{"username":"onekilobyte","password":"1K!lobyte"},{"username":"twogigabyte","password":"2Gig@byte"},{"username":"twomegabyte","password":"2Meg@byte"},{"username":"threemegabyte","password":"3Meg@byte"}]}

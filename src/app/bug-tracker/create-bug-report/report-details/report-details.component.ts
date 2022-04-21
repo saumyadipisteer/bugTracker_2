@@ -9,10 +9,14 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -23,7 +27,6 @@ import {
 import { CommonService } from 'src/app/shared/services/common.service';
 import { Fields } from '../../interface/common';
 import { Description } from '../../interface/description';
-import { ReportService } from '../../services/report.service';
 import { descriptionAction } from '../../state/description/description.action';
 import { initialBugDescriptionValue } from '../../state/description/description.reducer';
 import { addReport, updateReport } from '../../state/report/report.action';
@@ -45,23 +48,22 @@ export class ReportDetailsComponent
   @Input() index: number;
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild('subject') subjectField: ElementRef;
-  @ViewChild('status') statusField: ElementRef;
+  isFormInvalid: boolean = false;
   private _subscription: Subscription = new Subscription();
 
   fg: FormGroup;
   constructor(
     private store: Store,
     private router: Router,
-    private reportService: ReportService,
     private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
     this.fg = this.createForm();
-console.log(this.fields["describeTheBug"]?.required)
     if (this.description) {
       this.fg.patchValue(this.description);
     }
+    console.log(this.fg.controls['describeTheBug'].hasError('required'));
   }
 
   ngAfterViewInit(): void {
@@ -107,12 +109,26 @@ console.log(this.fields["describeTheBug"]?.required)
     Object.keys(this.fields).forEach((field) => {
       control[field] = [
         { value: null, disabled: this.fields[field]?.disabled },
+        this.fields[field]?.required
+          ? Validators.required
+          : Validators.nullValidator,
       ];
-      this.fields[field]?.required
-        ? Validators.required
-        : Validators.nullValidator;
     });
     return new FormBuilder().group(control);
+  }
+
+  /**
+   *
+   * @param controlName `string`
+   * @returns `boolean`
+   */
+  isRequired(controlName: string): boolean {
+    return (
+      this.fg.controls[controlName].hasError('required') &&
+      (this.fg.controls[controlName] as FormControl)?.touched &&
+      (this.fg.controls[controlName].value === null ||
+        this.fg.controls[controlName].value === '')
+    );
   }
 
   /**
@@ -133,6 +149,8 @@ console.log(this.fields["describeTheBug"]?.required)
         this.store.dispatch(addReport({ report }));
       }
       this.router.navigate(['bug/list']);
+    }else{
+      this.isFormInvalid = this.fg.valid;
     }
   }
 
@@ -155,7 +173,7 @@ console.log(this.fields["describeTheBug"]?.required)
     let user: string | undefined = JSON.parse(
       localStorage.getItem('user') || '{}'
     )?.user;
-      
+
     return {
       subject: data.subject,
       status: data.status,
