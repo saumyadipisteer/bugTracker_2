@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { UserService } from '../services/user.service';
 import { userLoginAction } from '../state/user.action';
 // import { Fields } from 'src/app/interface/report';
@@ -88,7 +89,8 @@ export class RegistrationFormComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private store: Store
+    private store: Store,
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -157,8 +159,8 @@ export class RegistrationFormComponent implements OnInit {
       .subscribe((data) => {
         
         if (data?.payload) {
-          console.log(data)
           user = data?.payload;
+          this.commonService.checkUser.next(true);
           this.store.dispatch(userLoginAction({ user }));
           this.router.navigate(['']);
         }

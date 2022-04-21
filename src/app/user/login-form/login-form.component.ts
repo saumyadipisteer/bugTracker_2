@@ -8,13 +8,13 @@ import {
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { UserState } from '../interface/user';
 
 // import { Fields } from 'src/app/interface/report';
+import { CommonService } from '../../shared/services/common.service';
 import { UserService } from '../services/user.service';
 import { userLoginAction } from '../state/user.action';
-// import { userLogin } from 'src/app/state/user-state/user.action';
 
 @Component({
   selector: 'login-form',
@@ -48,6 +48,7 @@ export class LoginFormComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private messageService: MessageService,
+    private commonService: CommonService,
     private store: Store
   ) {}
 
@@ -98,6 +99,7 @@ export class LoginFormComponent implements OnInit {
       user = data?.payload;
       if (user) {
         this.store.dispatch(userLoginAction({ user }));
+        this.commonService.checkUser.next(true);
         this.fg.reset();
         this.router.navigate(['']);
       } else {

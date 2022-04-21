@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initialNGRXStore();
+    
   }
 
   private initialNGRXStore():void{

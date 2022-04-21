@@ -9,17 +9,14 @@ import { CommonService } from 'src/app/shared/services/common.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private store: Store, private commonService: CommonService ) {}
+  constructor(private store: Store, private commonService: CommonService) {}
   isLoggedIn$: Observable<boolean>;
 
   ngOnInit(): void {
     //this.defaultUser();
-    
-    this.isLoggedIn$ = this.store.pipe(
-      select((login) => login['user']?.loggedIn)
-    );
 
-    this.store.subscribe(store=>store["user"]?.loggedIn)
+    this.isLoggedIn$ =
+      this.commonService.loginStatus$;
   }
 
   /**

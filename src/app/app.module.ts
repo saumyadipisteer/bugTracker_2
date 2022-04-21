@@ -21,13 +21,14 @@ import { reportReducer } from './shared/store/report/report.reduce';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule,
+    
     StoreModule.forRoot({ user: userReducer, report: reportReducer }, {}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent],

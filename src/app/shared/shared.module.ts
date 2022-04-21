@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StoreFeatureModule, StoreModule } from '@ngrx/store';
 import { userReducer } from '../user/state/user.reducer';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonService } from './services/common.service';
 
 @NgModule({
   declarations: [],
@@ -16,7 +17,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders<any> {
     return {
       ngModule: SharedModule,
-      providers: [],
+      providers: [CommonService],
     };
   }
 }

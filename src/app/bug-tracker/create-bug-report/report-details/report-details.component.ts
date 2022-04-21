@@ -63,7 +63,6 @@ export class ReportDetailsComponent
     if (this.description) {
       this.fg.patchValue(this.description);
     }
-    console.log(this.fg.controls['describeTheBug'].hasError('required'));
   }
 
   ngAfterViewInit(): void {
@@ -137,7 +136,7 @@ export class ReportDetailsComponent
    */
   onSubmit(): void {
     this.fg.markAllAsTouched();
-    const report = this._generateData(this.fg.getRawValue());
+    const report = this._generateData(this.fg.getRawValue(), this.description);
     if (!this.fg.invalid) {
       this._resetForm();
       if (this.type === 'update') {
@@ -149,7 +148,7 @@ export class ReportDetailsComponent
         this.store.dispatch(addReport({ report }));
       }
       this.router.navigate(['bug/list']);
-    }else{
+    } else {
       this.isFormInvalid = this.fg.valid;
     }
   }
@@ -169,19 +168,32 @@ export class ReportDetailsComponent
    * @param data `Description`
    * @returns `Description`
    */
-  private _generateData(data: any): any {
+  private _generateData(data: any, description?: Description): any {
     let user: string | undefined = JSON.parse(
       localStorage.getItem('user') || '{}'
     )?.user;
 
-    return {
-      subject: data.subject,
-      status: data.status,
-      severity: data.severity,
-      describeTheBug: data.describeTheBug,
-      user: user,
-      createdOn: this.commonService.generateDate(),
-    };
+    if (!this.type) {
+      return {
+        subject: data.subject,
+        status: data.status,
+        severity: data.severity,
+        describeTheBug: data.describeTheBug,
+        user: user,
+        createdOn: this.commonService.generateDate(),
+      };
+    } else {
+      return {
+        subject: data.subject,
+        status: data.status,
+        severity: data.severity,
+        describeTheBug: data.describeTheBug,
+        user: description?.user,
+        lastUpdatedOn: this.commonService.generateDate(),
+        updatedBy: user,
+        createdOn: description?.createdOn,
+      };
+    }
   }
 
   ngOnDestroy(): void {
