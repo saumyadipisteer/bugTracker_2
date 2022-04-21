@@ -14,7 +14,7 @@
       <div class="form__control">
         <label for="subject"
           >{{ fields["subject"]?.label }}
-          <span class="invalid" *ngIf="fields['subject']?.required"
+          <span class="invalid" *ngIf="fields['subject']?.required && !type"
             >*</span
           ></label
         >
@@ -33,7 +33,7 @@
         <div class="form__control">
           <label for="severity"
             >{{ fields["severity"]?.label }}
-            <span class="invalid" *ngIf="fields['severity']?.required"
+            <span class="invalid" *ngIf="fields['severity']?.required && !type"
               >*</span
             ></label
           >

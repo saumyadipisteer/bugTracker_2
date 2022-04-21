@@ -44,11 +44,22 @@
         ></button>
         <p-overlayPanel #op [style]="{ width: '150px' }">
           <ul class="overlay__menu">
-            <li class="overlay__menu-item" (click)="viewBugReport(report, rowIndex)">
-              <a class="overlay__menu-item--link" href="javascript:void(0)">Update</a>
+            <li
+              class="overlay__menu-item"
+              (click)="viewBugReport(report, rowIndex)"
+            >
+              <a class="overlay__menu-item--link" href="javascript:void(0)"
+                >Update</a
+              >
             </li>
-            <li class="overlay__menu-item delete" (click)="confirmDelete(rowIndex)">
-              <a href="javascript:void(0)" class="overlay__menu-item--link">Delete</a>
+            <li
+              class="overlay__menu-item delete"
+              (click)="confirmDelete(rowIndex)"
+              *ngIf="report.user === currentUser"
+            >
+              <a href="javascript:void(0)" class="overlay__menu-item--link"
+                >Delete</a
+              >
             </li>
           </ul>
         </p-overlayPanel>
@@ -56,4 +67,8 @@
     </tr>
   </ng-template>
 </p-table>
-<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>

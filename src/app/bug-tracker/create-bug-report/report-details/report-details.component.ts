@@ -27,6 +27,7 @@ import {
 import { CommonService } from 'src/app/shared/services/common.service';
 import { Fields } from '../../interface/common';
 import { Description } from '../../interface/description';
+import { ReportService } from '../../services/report.service';
 import { descriptionAction } from '../../state/description/description.action';
 import { initialBugDescriptionValue } from '../../state/description/description.reducer';
 import { addReport, updateReport } from '../../state/report/report.action';
@@ -50,16 +51,19 @@ export class ReportDetailsComponent
   @ViewChild('subject') subjectField: ElementRef;
   isFormInvalid: boolean = false;
   private _subscription: Subscription = new Subscription();
+  
 
   fg: FormGroup;
   constructor(
     private store: Store,
     private router: Router,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private reportService: ReportService
   ) {}
 
   ngOnInit(): void {
     this.fg = this.createForm();
+
     if (this.description) {
       this.fg.patchValue(this.description);
     }
@@ -107,7 +111,22 @@ export class ReportDetailsComponent
     const control = {};
     Object.keys(this.fields).forEach((field) => {
       control[field] = [
-        { value: null, disabled: this.fields[field]?.disabled },
+        {
+          value: null,
+          disabled:
+            this.reportService.currentUser !== this.description?.user && this.type
+              ? true
+              : this.fields[field]?.disabled,
+        },
+        this.fields[field]?.required && !this.type
+          ? Validators.required
+          : Validators.nullValidator,
+      ];
+      control['status'] = [
+        {
+          value: null,
+          disabled: this.fields[field]?.disabled,
+        },
         this.fields[field]?.required
           ? Validators.required
           : Validators.nullValidator,
@@ -115,6 +134,8 @@ export class ReportDetailsComponent
     });
     return new FormBuilder().group(control);
   }
+
+  private _editable;
 
   /**
    *
@@ -179,7 +200,7 @@ export class ReportDetailsComponent
         status: data.status,
         severity: data.severity,
         describeTheBug: data.describeTheBug,
-        user: user,
+        user: this.reportService.currentUser,
         createdOn: this.commonService.generateDate(),
       };
     } else {
@@ -190,7 +211,7 @@ export class ReportDetailsComponent
         describeTheBug: data.describeTheBug,
         user: description?.user,
         lastUpdatedOn: this.commonService.generateDate(),
-        updatedBy: user,
+        updatedBy: this.reportService.currentUser,
         createdOn: description?.createdOn,
       };
     }

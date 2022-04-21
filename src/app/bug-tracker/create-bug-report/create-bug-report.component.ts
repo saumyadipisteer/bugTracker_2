@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ReportService } from '../services/report.service';
 import { currentUsersReportSelector } from '../state/report/report.selector';
-
 
 @Component({
   selector: 'app-create-bug-report',
   templateUrl: './create-bug-report.component.html',
   styleUrls: ['./create-bug-report.component.scss'],
 })
-export class BugReportComponent implements OnInit {
+export class BugReportComponent implements OnInit, OnDestroy {
   fields: any = {
     details: {
       subject: {
@@ -54,10 +53,19 @@ export class BugReportComponent implements OnInit {
     this.description = this.config.data?.report;
     this.type = this.config.data?.type;
     this.index = this.config.data?.index;
-    this.store.pipe(select(currentUsersReportSelector('twomegabyte'))).subscribe(data=>console.log(data))
+    this.statusOptions = this.type
+      ? ['Open', 'TBD','Closed', 'In-Progress']
+      : ['Open', 'TBD'];
+    // this.store
+    //   .pipe(select(currentUsersReportSelector('twomegabyte')))
+    //   .subscribe((data) => console.log(data)); TODO - Use it on my reports
   }
 
   closeModal() {
     this.dialogRef.close();
+  }
+
+  ngOnDestroy(): void {
+    console.log('was called');
   }
 }

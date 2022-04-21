@@ -7,6 +7,7 @@ import {
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
 import { BugReportComponent } from '../../create-bug-report/create-bug-report.component';
+import { ReportService } from '../../services/report.service';
 import { descriptionAction } from '../../state/description/description.action';
 import { deleteReport } from '../../state/report/report.action';
 
@@ -20,16 +21,19 @@ export class BugListTableComponent implements OnInit {
   description: any;
   reports: any[];
   ref: DynamicDialogRef;
+  currentUser: string | undefined;
   constructor(
     private dialogService: DialogService,
     private store: Store,
-    private confirmService: ConfirmationService
+    private confirmService: ConfirmationService,
+    private reportService: ReportService
   ) {}
 
   ngOnInit(): void {
     this.store.subscribe((store) => {
       this.reports = store['report'];
     });
+    this.currentUser = this.reportService.currentUser;
   }
 
   viewBugReport(description: any, index: number) {
