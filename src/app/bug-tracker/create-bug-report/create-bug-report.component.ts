@@ -80,6 +80,5 @@ export class BugReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('was called');
   }
 }

@@ -12,8 +12,18 @@
   </ng-template>
   <ng-template pTemplate="content">
     <form [formGroup]="fg" class="details__form" (ngSubmit)="onSubmit()">
-      
-      <div class="form__control" >
+      <div
+        *ngIf="isTagged()"
+        class="tagged-message"
+      >
+        <small>
+          <em
+            >*This ticket is now under
+            <strong>{{ description?.taggedByUser }}</strong></em
+          >
+        </small>
+      </div>
+      <div class="form__control">
         <!-- <div tourAnchor="report.subject"></div> -->
         <label for="subject"
           >{{ fields["subject"]?.label }}
@@ -102,20 +112,30 @@
         class="form__control confirm__box"
         *ngIf="currentUser !== description?.user && type"
       >
-        <p-checkbox [binary]="true" inputId="binary" id="taggedBy" formControlName="taggedBy"></p-checkbox>
+        <p-checkbox
+          [binary]="true"
+          inputId="binary"
+          id="taggedBy"
+          formControlName="taggedBy"
+        ></p-checkbox>
         <label for="taggedBy">Will fix it</label>
       </div>
       <div class="form__control">
         <!-- <reportee-details></reportee-details> -->
       </div>
       <div class="form__control">
-        <button
-          type="submit"
-          pButton
-          label="Submit"
-          class="submit__btn"
-        ></button>
+        <ng-container *ngIf="!isTagged(); else viewButton">
+          <button
+            type="submit"
+            pButton
+            label="Submit"
+            class="submit__btn"
+          ></button>
+        </ng-container>
       </div>
     </form>
   </ng-template>
 </p-card>
+<ng-template #viewButton>
+  <button type="submit" pButton label="Close" class="submit__btn"></button>
+</ng-template>

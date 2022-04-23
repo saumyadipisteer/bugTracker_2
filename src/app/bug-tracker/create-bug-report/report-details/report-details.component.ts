@@ -118,36 +118,57 @@ export class ReportDetailsComponent
       control[field] = [
         {
           value: null,
-          disabled:
-            this.currentUser !== this.description?.user && !!this.type
-              ? true
-              : this.fields[field]?.disabled,
+          disabled: this._editable(field),
         },
         this.fields[field]?.required &&
         (!this.type || this.currentUser !== this.description?.user)
           ? Validators.required
           : Validators.nullValidator,
       ];
-
-      control['status'] = this.createFormControl('status');
-      control['taggedBy'] = this.createFormControl('taggedBy');
     });
     return new FormBuilder().group(control);
   }
 
-  private createFormControl(name: string) {
-    return [
-      {
-        value: null,
-        disabled: this.fields[name]?.disabled,
-      },
-      this.fields[name]?.required
-        ? Validators.required
-        : Validators.nullValidator,
-    ];
+  // private createFormControl(name: string) {
+  //   return [
+  //     {
+  //       value: null,
+  //       disabled:
+  //         name === 'taggedBy' && this.isTagged()
+  //           ? true
+  //           : this.fields[name]?.disabled,
+  //     },
+  //     this.fields[name]?.required
+  //       ? Validators.required
+  //       : Validators.nullValidator,
+  //   ];
+  // }
+
+  private _editable(field: string): boolean {
+    let editable;
+    switch (field) {
+      case 'subject':
+      case 'severity':
+      case 'describeTheBug':
+        editable = this.currentUser !== this.description?.user && !!this.type;
+        break;
+      case 'taggedBy':
+        editable = this.isTagged();
+        break;
+
+      default:
+        editable = this.fields[field]?.disabled;
+    }
+    return editable;
   }
 
-  private _editable;
+  isTagged(): boolean {
+    return (
+      this.currentUser !== this.description?.taggedByUser &&
+      (this.description?.taggedByUser === '' ||
+        !!this.description?.taggedByUser)
+    );
+  }
 
   /**
    *
@@ -169,21 +190,22 @@ export class ReportDetailsComponent
    */
   onSubmit(): void {
     this.fg.markAllAsTouched();
-    console.log('called after invalid check');
     const report = this._generateData(this.fg.getRawValue(), this.description);
     if (!this.fg.invalid) {
-      console.log('called after invalid check');
-      this._resetForm();
-      if (this.type === 'update') {
-        this.store.dispatch(
-          updateReport({ report: report, rIndex: this.index })
-        );
-        this.closeModal.emit(true);
+      if (!this.isTagged()) {
+        this._resetForm();
+        if (this.type === 'update') {
+          this.store.dispatch(
+            updateReport({ report: report, rIndex: this.index })
+          );
+          this.closeModal.emit(true);
+        } else {
+          this.store.dispatch(addReport({ report }));
+        }
+        this.router.navigate(['bug/list']);
       } else {
-        console.log('called');
-        this.store.dispatch(addReport({ report }));
+        this.closeModal.emit(true);
       }
-      this.router.navigate(['bug/list']);
     } else {
       this.isFormInvalid = this.fg.valid;
     }
@@ -205,10 +227,6 @@ export class ReportDetailsComponent
    * @returns `Description`
    */
   private _generateData(data: any, description?: Description): any {
-    let user: string | undefined = JSON.parse(
-      localStorage.getItem('user') || '{}'
-    )?.user;
-
     if (!this.type) {
       return {
         subject: data.subject,
@@ -217,7 +235,8 @@ export class ReportDetailsComponent
         describeTheBug: data.describeTheBug,
         user: this.currentUser,
         createdOn: this.commonService.generateDate(),
-        taggedBy: '',
+        taggedBy: false,
+        taggedByUser: '',
       };
     } else {
       return {
@@ -230,6 +249,10 @@ export class ReportDetailsComponent
         updatedBy: this.currentUser,
         createdOn: description?.createdOn,
         taggedBy: data?.taggedBy,
+        taggedByUser:
+          data.taggedBy && !this.isTagged()
+            ? this.currentUser
+            : data?.taggedByUser,
       };
     }
   }

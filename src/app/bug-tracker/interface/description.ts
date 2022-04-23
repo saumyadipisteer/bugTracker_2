@@ -5,4 +5,8 @@ export interface Description {
   describeTheBug?: string | null;
   user?: string;
   createdOn?: string;
+  lastUpdatedOn?: string;
+  updatedBy?: string;
+  taggedBy?: boolean;
+  taggedByUser?: string;
 }

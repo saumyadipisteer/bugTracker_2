@@ -33,9 +33,7 @@
   }
 }
 
-.updateScreen {
 
-}
 
 .confirm__box{
   display: flex;
@@ -48,4 +46,8 @@
   &:disabled{
     cursor: not-allowed;
   }
+}
+
+.tagged-message{
+  color: rgb(245, 30, 30);
 }

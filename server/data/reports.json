@@ -1,1 +1,82 @@
-{"reports":[{"subject":"Password's eye button not working","status":"Open","severity":"Low","describeTheBug":null,"user":"fivegigabyte","createdOn":"Saturday 04 2022","taggedBy":""},{"subject":"Checkbox not working","status":"Open","severity":"Low","describeTheBug":null,"user":"twogigabyte","lastUpdatedOn":"Friday 04 2022","updatedBy":"twogigabyte","createdOn":"Friday 04 2022","taggedBy":""},{"subject":"Moon is like a golf ball","status":"Open","severity":"Low","describeTheBug":null,"user":"ankeshpandey","createdOn":"Thursday 04 2022"},{"subject":"Radio button not working","status":"In-Progress","severity":"High","describeTheBug":null,"user":"onekilobyte","lastUpdatedOn":"Thursday 04 2022","updatedBy":"ankeshpandey","createdOn":"Wednesday 04 2022","taggedBy":true},{"subject":"Button not disabled","status":"Open","severity":"Medium","describeTheBug":null,"user":"onekilobyte","createdOn":"Thursday 04 2022"},{"subject":"Colors are not clearly visible","status":"Open","severity":"Low","describeTheBug":null,"user":"onekilobyte","createdOn":"Wednesday 04 2022"},{"subject":"Demo page showing error when clicking next button","status":"Open","severity":"High","describeTheBug":null,"user":"twomegabyte","createdOn":"Wednesday 04 2022"},{"subject":"testDelete","status":"Open","severity":"Low","describeTheBug":"assadjadlks","user":"ankeshpandey","createdOn":"Thursday 04 2022"}]}
+{
+  "reports": [
+    {
+      "subject": "Password's eye button not working",
+      "status": "Open",
+      "severity": "Low",
+      "describeTheBug": null,
+      "user": "fivegigabyte",
+      "lastUpdatedOn": "Saturday 04 2022",
+      "updatedBy": "threemegabyte",
+      "createdOn": "Saturday 04 2022",
+      "taggedBy": true,
+      "taggedByUser": "threemegabyte"
+    },
+    {
+      "subject": "Checkbox not working",
+      "status": "Open",
+      "severity": "Low",
+      "describeTheBug": null,
+      "user": "twogigabyte",
+      "lastUpdatedOn": "Saturday 04 2022",
+      "updatedBy": "onekilobyte",
+      "createdOn": "Friday 04 2022",
+      "taggedBy": true
+    },
+    {
+      "subject": "Moon is like a golf ball",
+      "status": "Open",
+      "severity": "Low",
+      "describeTheBug": null,
+      "user": "ankeshpandey",
+      "lastUpdatedOn": "Saturday 04 2022",
+      "updatedBy": "onekilobyte",
+      "createdOn": "Thursday 04 2022",
+      "taggedBy": true,
+      "taggedByUser": "onekilobyte"
+    },
+    {
+      "subject": "Radio button not working",
+      "status": "In-Progress",
+      "severity": "High",
+      "describeTheBug": null,
+      "user": "onekilobyte",
+      "lastUpdatedOn": "Thursday 04 2022",
+      "updatedBy": "ankeshpandey",
+      "createdOn": "Wednesday 04 2022",
+      "taggedBy": true
+    },
+    {
+      "subject": "Button not disabled",
+      "status": "Open",
+      "severity": "Medium",
+      "describeTheBug": null,
+      "user": "onekilobyte",
+      "createdOn": "Thursday 04 2022"
+    },
+    {
+      "subject": "Colors are not clearly visible",
+      "status": "Open",
+      "severity": "Low",
+      "describeTheBug": null,
+      "user": "onekilobyte",
+      "createdOn": "Wednesday 04 2022"
+    },
+    {
+      "subject": "Demo page showing error when clicking next button",
+      "status": "Open",
+      "severity": "High",
+      "describeTheBug": null,
+      "user": "twomegabyte",
+      "createdOn": "Wednesday 04 2022"
+    },
+    {
+      "subject": "testDelete",
+      "status": "Open",
+      "severity": "Low",
+      "describeTheBug": "assadjadlks",
+      "user": "ankeshpandey",
+      "createdOn": "Thursday 04 2022"
+    }
+  ]
+}
