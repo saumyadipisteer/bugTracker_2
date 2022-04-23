@@ -1,4 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 import { ReportDetailsComponent } from './report-details.component';
 
@@ -8,9 +13,15 @@ describe('ReportDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReportDetailsComponent ]
-    })
-    .compileComponents();
+      declarations: [ReportDetailsComponent],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+      ],
+      providers: [provideMockStore({}), CommonService],
+    }).compileComponents();
   });
 
   beforeEach(() => {

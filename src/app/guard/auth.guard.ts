@@ -6,14 +6,13 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store, private router: Router) {}
+  constructor(private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

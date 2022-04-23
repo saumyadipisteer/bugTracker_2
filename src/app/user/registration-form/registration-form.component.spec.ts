@@ -1,4 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { UserService } from '../services/user.service';
 
 import { RegistrationFormComponent } from './registration-form.component';
 
@@ -8,9 +12,10 @@ describe('RegistrationFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistrationFormComponent ]
-    })
-    .compileComponents();
+      declarations: [RegistrationFormComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      providers:[UserService, provideMockStore({})]
+    }).compileComponents();
   });
 
   beforeEach(() => {

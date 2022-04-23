@@ -1,20 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { CreateBugReportComponent } from './create-bug-report.component';
+import { BugReportComponent } from './create-bug-report.component';
 
 describe('CreateBugReportComponent', () => {
-  let component: CreateBugReportComponent;
-  let fixture: ComponentFixture<CreateBugReportComponent>;
+  let component: BugReportComponent;
+  let fixture: ComponentFixture<BugReportComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateBugReportComponent ]
-    })
-    .compileComponents();
+      declarations: [BugReportComponent],
+      providers: [DynamicDialogConfig, DynamicDialogRef, provideMockStore({})],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateBugReportComponent);
+    fixture = TestBed.createComponent(BugReportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

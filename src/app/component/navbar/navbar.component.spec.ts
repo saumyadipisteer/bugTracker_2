@@ -1,4 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 import { NavbarComponent } from './navbar.component';
 
@@ -8,9 +11,10 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarComponent ]
-    })
-    .compileComponents();
+      declarations: [NavbarComponent],
+      providers: [provideMockStore({}), CommonService],
+      imports: [HttpClientTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

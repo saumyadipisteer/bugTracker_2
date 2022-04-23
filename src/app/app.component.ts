@@ -4,6 +4,7 @@ import { CommonService } from './shared/services/common.service';
 import { addReport } from './shared/store/report/report.action';
 import { userLoginAction } from './shared/store/user/user.action';
 import { TourService } from 'ngx-tour-md-menu';
+import { User } from './shared/interface/user';
 
 @Component({
   selector: 'app-root',
@@ -26,46 +27,46 @@ export class AppComponent implements OnInit, OnDestroy {
         anchorId: 'report.subject',
         content: 'A mandatory field',
         title: 'Subject',
-        endBtnTitle:'Done',
+        endBtnTitle: 'Done',
         route: 'bug/createReport',
-        
-        preventScrolling: false
+
+        preventScrolling: false,
       },
       {
         anchorId: 'report.severity',
-        content: 'Another mandatory field, with options like low, medium and high',
-        endBtnTitle:'Done',
+        content:
+          'Another mandatory field, with options like low, medium and high',
+        endBtnTitle: 'Done',
         title: 'Severity',
         route: 'bug/createReport',
       },
       {
         anchorId: 'report.status',
         content: 'Another mandatory field',
-        endBtnTitle:'Done',
+        endBtnTitle: 'Done',
         title: 'Status',
         route: 'bug/createReport',
       },
       {
         anchorId: 'report.describe',
         content: 'Not mandetory, but a bug can be described',
-        endBtnTitle:'Done',
+        endBtnTitle: 'Done',
         title: 'Report description',
         route: 'bug/createReport',
-        placement:'below'
+        placement: 'below',
       },
     ]);
-    this.tourService
+    this.tourService;
     this.tourService.start();
   }
 
   private initialNGRXStore(): void {
-    this.fetchFromLocal();
+    this.store.dispatch(userLoginAction({ user: this.fetchFromLocal() }));
     this.fetchAndStoreReports();
   }
 
-  private fetchFromLocal(): void {
-    const user = JSON.parse(localStorage?.getItem('user') || '{}');
-    this.store.dispatch(userLoginAction({ user }));
+  private fetchFromLocal(): User {
+    return JSON.parse(localStorage?.getItem('user') || '{}');
   }
 
   private fetchAndStoreReports(): void {
