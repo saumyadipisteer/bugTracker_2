@@ -6,6 +6,7 @@ import {
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { BugReportComponent } from '../../create-bug-report/create-bug-report.component';
 import { ReportService } from '../../services/report.service';
 import { descriptionAction } from '../../state/description/description.action';
@@ -26,24 +27,25 @@ export class BugListTableComponent implements OnInit {
     private dialogService: DialogService,
     private store: Store,
     private confirmService: ConfirmationService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.reportService.currentUser;
+    this.commonService.curretUser$.subscribe((username) => {
+      this.currentUser = username;
+    });
     this.store.subscribe((store) => {
       this.reports = store['report'];
     });
-    console.log(this.reports[4].user === this.currentUser)
-   
   }
 
   viewBugReport(description: any, index: number) {
     this.store.dispatch(descriptionAction({ description }));
     this.ref = this.dialogService.open(BugReportComponent, {
       width: '490px',
-     
-      header:'Update',
+
+      header: 'Update',
       data: { report: description, type: 'update', index: index },
       baseZIndex: 999999999,
     });

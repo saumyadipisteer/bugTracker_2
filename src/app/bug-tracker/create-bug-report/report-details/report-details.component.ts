@@ -63,14 +63,14 @@ export class ReportDetailsComponent
   ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.reportService.currentUser;
+    this.commonService.curretUser$.subscribe((name) => {
+      this.currentUser = name;
+    });
     this.fg = this.createForm();
 
     if (this.description) {
       this.fg.patchValue(this.description);
     }
-
-    
   }
 
   ngAfterViewInit(): void {
@@ -111,7 +111,8 @@ export class ReportDetailsComponent
    * @param none
    * @returns `FormGroup`
    */
-  private createForm(): FormGroup { // TODO: Refactoring required!
+  private createForm(): FormGroup {
+    // TODO: Refactoring required!
     const control = {};
     Object.keys(this.fields).forEach((field) => {
       control[field] = [
@@ -134,7 +135,7 @@ export class ReportDetailsComponent
     return new FormBuilder().group(control);
   }
 
-  private createFormControl(name: string){
+  private createFormControl(name: string) {
     return [
       {
         value: null,
@@ -168,10 +169,10 @@ export class ReportDetailsComponent
    */
   onSubmit(): void {
     this.fg.markAllAsTouched();
-    console.log('called after invalid check')
+    console.log('called after invalid check');
     const report = this._generateData(this.fg.getRawValue(), this.description);
     if (!this.fg.invalid) {
-      console.log('called after invalid check')
+      console.log('called after invalid check');
       this._resetForm();
       if (this.type === 'update') {
         this.store.dispatch(
@@ -179,7 +180,7 @@ export class ReportDetailsComponent
         );
         this.closeModal.emit(true);
       } else {
-        console.log('called')
+        console.log('called');
         this.store.dispatch(addReport({ report }));
       }
       this.router.navigate(['bug/list']);
@@ -216,7 +217,7 @@ export class ReportDetailsComponent
         describeTheBug: data.describeTheBug,
         user: this.currentUser,
         createdOn: this.commonService.generateDate(),
-        taggedBy: ''
+        taggedBy: '',
       };
     } else {
       return {
@@ -228,7 +229,7 @@ export class ReportDetailsComponent
         lastUpdatedOn: this.commonService.generateDate(),
         updatedBy: this.currentUser,
         createdOn: description?.createdOn,
-        taggedBy: data?.taggedBy
+        taggedBy: data?.taggedBy,
       };
     }
   }

@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
   routes = [];
 
   isLoggedIn$: Observable<boolean>;
+  currentUserName: string;
   constructor(private store: Store, private commonService: CommonService) {}
 
   ngOnInit(): void {
@@ -22,6 +23,14 @@ export class NavbarComponent implements OnInit {
       !!JSON.parse(localStorage.getItem('user') || '{}')?.loggedIn
     );
     // this.userService.setLoginStatus();
+
+    this.commonService.getCurrentUser.next(
+      JSON.parse(localStorage.getItem('user') || '{}')?.user
+    );
+
+    this.commonService.curretUser$.subscribe((user) => {
+      this.currentUserName = user;
+    });
   }
 
   userLoggedIn() {
