@@ -30,17 +30,20 @@ export class BugListTableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.currentUser = this.reportService.currentUser;
     this.store.subscribe((store) => {
       this.reports = store['report'];
     });
-    this.currentUser = this.reportService.currentUser;
+    console.log(this.reports[4].user === this.currentUser)
+   
   }
 
   viewBugReport(description: any, index: number) {
     this.store.dispatch(descriptionAction({ description }));
     this.ref = this.dialogService.open(BugReportComponent, {
-      width: '40%',
-      showHeader: false,
+      width: '490px',
+     
+      header:'Update',
       data: { report: description, type: 'update', index: index },
       baseZIndex: 999999999,
     });
@@ -48,6 +51,7 @@ export class BugListTableComponent implements OnInit {
 
   confirmDelete(index: number): void {
     this.confirmService.confirm({
+      header: 'Delete confirmation',
       message: 'Are you sure you want to delete this report?',
       accept: () => {
         this.store.dispatch(deleteReport({ rIndex: index }));

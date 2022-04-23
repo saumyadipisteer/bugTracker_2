@@ -1,10 +1,11 @@
 <div class="recipe__login">
-  
   <form [formGroup]="fg" class="recipe__login-form" (ngSubmit)="onSubmit()">
     <div class="recipe__login-heading">
-      <h1 class="recipe__login-heading--text">Sign In<span class="dot-for-style">.</span></h1>
+      <h1 class="recipe__login-heading--text">
+        Sign In<span class="dot-for-style">.</span>
+      </h1>
     </div>
-    <div class="invalidMessage" *ngIf="(isValid$ | async)">
+    <div class="invalidMessage" *ngIf="isValid$ | async">
       Username or password is invalid
     </div>
     <div class="form__group">
@@ -32,13 +33,24 @@
           >*</span
         ></label
       >
-      <input
-        type="password"
-        name=""
-        id="password"
-        formControlName="password"
-        pInputText
-      />
+      <div class="password__reveal">
+        <input
+          [type]="!revealPassword ? 'password' : 'text'"
+          name=""
+          id="password"
+          formControlName="password"
+          pInputText
+          class="password__field"
+        />
+        <button
+          pButton
+          pRipple
+          type="button"
+          (click)="revealPassword = !revealPassword"
+          icon="pi pi-eye"
+          class="p-button-text eye-button"
+        ></button>
+      </div>
       <div class="invalidMessage" *ngIf="isRequired('password')">
         Field is required!
       </div>

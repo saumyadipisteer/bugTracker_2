@@ -100,7 +100,7 @@ module.exports.createReports = (req, res, next) => {
     "utf8",
     (err, data) => {
       const reports = JSON.parse(data)?.reports;
-      reports.push(req.body);
+      reports.unshift(req.body);
       fs.writeFile(
         path.join(__dirname, "../data/reports.json"),
         JSON.stringify({ reports: reports }),

@@ -50,6 +50,14 @@
     & > a{
       color: #fff;
     }
+
+    &:hover{
+      background-color: darken(rgb(240, 71, 71),5);
+
+      & > a{
+        color: darken(#fff,5);
+      }
+    }
   }
 }
 

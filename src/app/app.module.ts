@@ -13,6 +13,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from 'primeng/api';
 import { userReducer } from './shared/store/user/user.reducer';
 import { reportReducer } from './shared/store/report/report.reduce';
+import { TourMatMenuModule } from 'ngx-tour-md-menu';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -28,7 +29,8 @@ import { reportReducer } from './shared/store/report/report.reduce';
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
-    SharedModule
+    SharedModule,
+    TourMatMenuModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

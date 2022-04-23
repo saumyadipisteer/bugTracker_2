@@ -33,6 +33,16 @@
   }
 }
 
+.updateScreen {
+
+}
+
+.confirm__box{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
 .submit__btn{
   margin-top: 20px;
   &:disabled{

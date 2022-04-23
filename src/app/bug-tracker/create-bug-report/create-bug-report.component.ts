@@ -36,6 +36,20 @@ export class BugReportComponent implements OnInit, OnDestroy {
         required: false,
         disabled: false,
       },
+      taggedBy: {
+        label: 'Will fix this',
+        field: 'taggedBy',
+        required: false,
+        disabled: false,
+      },
+    },
+    optionalDetails: {
+      dueDate: {
+        label: 'Due date',
+        field: 'dueDate',
+        required: true,
+        disabled: false,
+      },
     },
   };
   severityOptions: string[] = ['Low', 'Medium', 'High']; //- TODO: must come from an API
@@ -54,7 +68,7 @@ export class BugReportComponent implements OnInit, OnDestroy {
     this.type = this.config.data?.type;
     this.index = this.config.data?.index;
     this.statusOptions = this.type
-      ? ['Open', 'TBD','Closed', 'In-Progress']
+      ? ['Open', 'TBD', 'Closed', 'In-Progress']
       : ['Open', 'TBD'];
     // this.store
     //   .pipe(select(currentUsersReportSelector('twomegabyte')))

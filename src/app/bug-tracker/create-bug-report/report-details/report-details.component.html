@@ -1,20 +1,29 @@
 <p-card
   [style]="{
-    width: '80%',
+    width: '450px',
     margin: '0 auto',
     padding: '10px 20px',
     minWidth: '360px'
   }"
+  [style.width]="type ? '100%' : '50%'"
 >
   <ng-template pTemplate="header">
     <h2 class="form__heading-text">Report Details</h2>
   </ng-template>
   <ng-template pTemplate="content">
     <form [formGroup]="fg" class="details__form" (ngSubmit)="onSubmit()">
-      <div class="form__control">
+      
+      <div class="form__control" >
+        <!-- <div tourAnchor="report.subject"></div> -->
         <label for="subject"
           >{{ fields["subject"]?.label }}
-          <span class="invalid" *ngIf="fields['subject']?.required && !type"
+          <span
+            class="invalid"
+            *ngIf="
+              (fields['subject']?.required && !type) ||
+              (fields['subject']?.required &&
+                this.currentUser === this.description?.user)
+            "
             >*</span
           ></label
         >
@@ -30,16 +39,23 @@
         </div>
       </div>
       <div class="form__control-group">
+        <!-- <div  tourAnchor="report.severity"></div> -->
         <div class="form__control">
           <label for="severity"
             >{{ fields["severity"]?.label }}
-            <span class="invalid" *ngIf="fields['severity']?.required && !type"
+            <span
+              class="invalid"
+              *ngIf="
+                (fields['subject']?.required && !type) ||
+                (fields['subject']?.required &&
+                  this.currentUser === this.description?.user)
+              "
               >*</span
             ></label
           >
           <p-dropdown
             [options]="severityOptions"
-            [style]="{ width: '50%', minWidth: '272px' }"
+            [style]="{ width: '50%', minWidth: '362px' }"
             placeholder="--Select--"
             formControlName="severity"
             id="severity"
@@ -49,6 +65,7 @@
           </div>
         </div>
         <div class="form__control">
+          <!-- <div tourAnchor="report.status" class="chec"></div> -->
           <label for="status"
             >{{ fields["status"]?.label
             }}<span class="invalid" *ngIf="fields['status']?.required"
@@ -58,7 +75,7 @@
           <p-dropdown
             (onChange)="updateDescriptionStore($event.value)"
             [options]="statusOptions"
-            [style]="{ width: '50%', minWidth: '272px' }"
+            [style]="{ width: '50%', minWidth: '362px' }"
             formControlName="status"
             placeholder="--Select--"
             id="status"
@@ -76,9 +93,20 @@
           ></label
         >
         <textarea pInputTextarea formControlName="describeTheBug"></textarea>
+        <div tourAnchor="report.describe"></div>
         <div class="invalidMessage" *ngIf="isRequired('describeTheBug')">
           Field is required!
         </div>
+      </div>
+      <div
+        class="form__control confirm__box"
+        *ngIf="currentUser !== description?.user && type"
+      >
+        <p-checkbox [binary]="true" inputId="binary" id="taggedBy" formControlName="taggedBy"></p-checkbox>
+        <label for="taggedBy">Will fix it</label>
+      </div>
+      <div class="form__control">
+        <!-- <reportee-details></reportee-details> -->
       </div>
       <div class="form__control">
         <button
@@ -86,7 +114,6 @@
           pButton
           label="Submit"
           class="submit__btn"
-          
         ></button>
       </div>
     </form>

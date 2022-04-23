@@ -30,13 +30,24 @@
           >*</span
         ></label
       >
-      <input
-        type="password"
-        name=""
-        id="password"
-        formControlName="password"
-        pInputText
-      />
+      <div class="password__reveal">
+        <input
+          [type]="!revealPassword ? 'password' : 'text'"
+          name=""
+          id="password"
+          formControlName="password"
+          pInputText
+          class="password__field"
+        />
+        <button
+          pButton
+          pRipple
+          type="button"
+          (click)="revealPassword = !revealPassword"
+          icon="pi pi-eye"
+          class="p-button-text eye-button"
+        ></button>
+      </div>
       <div class="invalidMessage" *ngIf="isRequired('password')">
         Field is required!
       </div>

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 import { BugTrackerRoutingModule } from './bug-tracker-routing.module';
 import { BugTrackerComponent } from './bug-tracker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,10 +11,15 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
-import { DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import {
+  DynamicDialogConfig,
+  DynamicDialogModule,
+  DynamicDialogRef,
+} from 'primeng/dynamicdialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TableModule } from 'primeng/table';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CheckboxModule } from 'primeng/checkbox';
 import { BugReportComponent } from './create-bug-report/create-bug-report.component';
 import { ReportDetailsComponent } from './create-bug-report/report-details/report-details.component';
 import { BugListComponent } from './bug-list/bug-list.component';
@@ -26,6 +30,8 @@ import { reportReducer } from './state/report/report.reduce';
 import { ConfirmationService } from 'primeng/api';
 import { EffectsModule } from '@ngrx/effects';
 import { ReportsEffect } from './state/report/report.effects';
+import { ReporteeDetailsComponent } from './create-bug-report/report-details/reportee-details/reportee-details.component';
+import { TourMatMenuModule } from 'ngx-tour-md-menu';
 
 const primengModule = [
   ButtonModule,
@@ -38,7 +44,8 @@ const primengModule = [
   InputTextareaModule,
   DynamicDialogModule,
   OverlayPanelModule,
-  ConfirmDialogModule
+  ConfirmDialogModule,
+  CheckboxModule,
 ];
 
 @NgModule({
@@ -48,6 +55,7 @@ const primengModule = [
     ReportDetailsComponent,
     BugListComponent,
     BugListTableComponent,
+    ReporteeDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -55,11 +63,11 @@ const primengModule = [
     ReactiveFormsModule,
     FormsModule,
     ...primengModule,
-    StoreModule.forFeature('description',descriptionReducer),
-    StoreModule.forFeature('report',reportReducer),
+    StoreModule.forFeature('description', descriptionReducer),
+    StoreModule.forFeature('report', reportReducer),
     EffectsModule.forFeature([ReportsEffect]),
-    
+    TourMatMenuModule,
   ],
-  providers:[DynamicDialogConfig,DynamicDialogRef, ConfirmationService]
+  providers: [DynamicDialogConfig, DynamicDialogRef, ConfirmationService],
 })
 export class BugTrackerModule {}

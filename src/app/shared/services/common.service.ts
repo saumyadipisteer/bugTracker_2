@@ -10,8 +10,10 @@ import { environment } from 'src/environments/environment.prod';
 export class CommonService {
   private _url: string = environment.apiUrl;
   checkUser: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  getCurrentUser: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   loginStatus$ = this.checkUser.asObservable();
+  curretUser$ = this.getCurrentUser.asObservable();
   constructor(private http: HttpClient) {}
 
   getReports(): Observable<ResponseData> {

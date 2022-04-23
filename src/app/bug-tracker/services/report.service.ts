@@ -12,6 +12,7 @@ export class ReportService {
   currentUser: string | undefined = JSON.parse(
     localStorage.getItem('user') || '{}'
   )?.user;
+  
   constructor(private http: HttpClient) {}
 
   postData(report: Description): Observable<Description[]> {

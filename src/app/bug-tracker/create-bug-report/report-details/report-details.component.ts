@@ -44,14 +44,15 @@ export class ReportDetailsComponent
   @Input() severityOptions: string[];
   @Input() statusOptions: string[];
   @Input() fields: Fields;
+  @Input() optionalFields: Fields;
   @Input() description: Description;
   @Input() type: string;
   @Input() index: number;
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild('subject') subjectField: ElementRef;
   isFormInvalid: boolean = false;
+  currentUser: string | undefined;
   private _subscription: Subscription = new Subscription();
-  
 
   fg: FormGroup;
   constructor(
@@ -62,11 +63,14 @@ export class ReportDetailsComponent
   ) {}
 
   ngOnInit(): void {
+    this.currentUser = this.reportService.currentUser;
     this.fg = this.createForm();
 
     if (this.description) {
       this.fg.patchValue(this.description);
     }
+
+    
   }
 
   ngAfterViewInit(): void {
@@ -107,32 +111,39 @@ export class ReportDetailsComponent
    * @param none
    * @returns `FormGroup`
    */
-  private createForm(): FormGroup {
+  private createForm(): FormGroup { // TODO: Refactoring required!
     const control = {};
     Object.keys(this.fields).forEach((field) => {
       control[field] = [
         {
           value: null,
           disabled:
-            this.reportService.currentUser !== this.description?.user && this.type
+            this.currentUser !== this.description?.user && !!this.type
               ? true
               : this.fields[field]?.disabled,
         },
-        this.fields[field]?.required && !this.type
+        this.fields[field]?.required &&
+        (!this.type || this.currentUser !== this.description?.user)
           ? Validators.required
           : Validators.nullValidator,
       ];
-      control['status'] = [
-        {
-          value: null,
-          disabled: this.fields[field]?.disabled,
-        },
-        this.fields[field]?.required
-          ? Validators.required
-          : Validators.nullValidator,
-      ];
+
+      control['status'] = this.createFormControl('status');
+      control['taggedBy'] = this.createFormControl('taggedBy');
     });
     return new FormBuilder().group(control);
+  }
+
+  private createFormControl(name: string){
+    return [
+      {
+        value: null,
+        disabled: this.fields[name]?.disabled,
+      },
+      this.fields[name]?.required
+        ? Validators.required
+        : Validators.nullValidator,
+    ];
   }
 
   private _editable;
@@ -157,8 +168,10 @@ export class ReportDetailsComponent
    */
   onSubmit(): void {
     this.fg.markAllAsTouched();
+    console.log('called after invalid check')
     const report = this._generateData(this.fg.getRawValue(), this.description);
     if (!this.fg.invalid) {
+      console.log('called after invalid check')
       this._resetForm();
       if (this.type === 'update') {
         this.store.dispatch(
@@ -166,6 +179,7 @@ export class ReportDetailsComponent
         );
         this.closeModal.emit(true);
       } else {
+        console.log('called')
         this.store.dispatch(addReport({ report }));
       }
       this.router.navigate(['bug/list']);
@@ -200,8 +214,9 @@ export class ReportDetailsComponent
         status: data.status,
         severity: data.severity,
         describeTheBug: data.describeTheBug,
-        user: this.reportService.currentUser,
+        user: this.currentUser,
         createdOn: this.commonService.generateDate(),
+        taggedBy: ''
       };
     } else {
       return {
@@ -211,8 +226,9 @@ export class ReportDetailsComponent
         describeTheBug: data.describeTheBug,
         user: description?.user,
         lastUpdatedOn: this.commonService.generateDate(),
-        updatedBy: this.reportService.currentUser,
+        updatedBy: this.currentUser,
         createdOn: description?.createdOn,
+        taggedBy: data?.taggedBy
       };
     }
   }

@@ -43,6 +43,7 @@ export class LoginFormComponent implements OnInit {
     false
   );
   isValid$ = this._isValid$.asObservable();
+  revealPassword: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -100,6 +101,7 @@ export class LoginFormComponent implements OnInit {
       if (user) {
         this.store.dispatch(userLoginAction({ user }));
         this.commonService.checkUser.next(true);
+        this.commonService.getCurrentUser.next(user.user)
         this.fg.reset();
         this.router.navigate(['']);
       } else {

@@ -14,9 +14,11 @@
     height: 10%;
     margin: 7.5px 15px;
     color: rgb(103, 224, 183);
-
+   
     &--text {
       text-align: center;
+      font-size: 40px;
+      font-weight: 600;
     }
   }
   
@@ -43,4 +45,21 @@
 .dot-for-style{
   color: #00ced1;
   font-size: 35px;
+}
+
+.password__field-eye{
+  background-color: antiquewhite;
+}
+.password__reveal{
+  border-radius: 5px;
+  border: 1px solid rgb(216, 216, 216);
+}
+
+.eye-button{
+  width: 10%;
+}
+
+.password__field{
+  width: 90%;
+  border: 0;
 }

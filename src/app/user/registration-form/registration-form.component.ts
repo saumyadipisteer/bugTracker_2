@@ -62,7 +62,7 @@ function passLength(
 })
 export class RegistrationFormComponent implements OnInit {
   formLabel: string = 'Sign Up';
-
+  revealPassword: boolean = false;
   fields: any = {
     username: {
       field: 'username',

@@ -7,7 +7,7 @@ export const initialReportValue: Description[] = [];
 export const reportReducer = createReducer(
   initialReportValue,
   on(addReport, (state, { report }) => {
-    return [...state, report];
+    return [report, ...state];
   }),
   on(updateReport, (state, { report, rIndex }) => {
     return state.map((value, index) =>
@@ -16,7 +16,7 @@ export const reportReducer = createReducer(
   }),
   on(deleteReport, (state, { rIndex }) => {
     let newState = [...state];
-    newState.splice(rIndex, 1)
+    newState.splice(rIndex, 1);
     return newState;
   })
 );
