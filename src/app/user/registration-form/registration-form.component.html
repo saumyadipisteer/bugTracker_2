@@ -5,6 +5,9 @@
         {{ formLabel }}<span class="dot-for-style">.</span>
       </h1>
     </div>
+    <div class="invalidMessage" *ngIf="isExist$ | async">
+      Username already exist!
+    </div>
     <div class="form__group">
       <label for="username"
         >{{ fields["username"]?.label }}
@@ -53,9 +56,7 @@
       </div>
       <div
         class="password-formalitis invalidMessage"
-        *ngIf="
-          fg.controls['password'].invalid && fg.controls['password'].dirty
-        "
+        *ngIf="fg.controls['password'].invalid && fg.controls['password'].dirty"
       >
         <div *ngIf="hasError('oneCapitalRequired')">
           * Password must contain 1 Capital case alphabet.

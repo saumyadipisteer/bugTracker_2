@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { UserService } from '../services/user.service';
 import { userLoginAction } from '../state/user.action';
@@ -85,6 +86,10 @@ export class RegistrationFormComponent implements OnInit {
   };
 
   fg: FormGroup;
+  private _isExist$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  isExist$ = this._isExist$.asObservable();
 
   constructor(
     private router: Router,
@@ -163,6 +168,10 @@ export class RegistrationFormComponent implements OnInit {
           this.commonService.checkUser.next(true);
           this.store.dispatch(userLoginAction({ user }));
           this.router.navigate(['']);
+        }else{
+          if(data?.statusCode === 409){
+            this._isExist$.next(true);
+          }
         }
       });
     this.fg.reset();

@@ -12,10 +12,7 @@
   </ng-template>
   <ng-template pTemplate="content">
     <form [formGroup]="fg" class="details__form" (ngSubmit)="onSubmit()">
-      <div
-        *ngIf="isTagged()"
-        class="tagged-message"
-      >
+      <div *ngIf="isTagged()" class="tagged-message">
         <small>
           <em
             >*This ticket is now under
@@ -24,7 +21,6 @@
         </small>
       </div>
       <div class="form__control">
-        <!-- <div tourAnchor="report.subject"></div> -->
         <label for="subject"
           >{{ fields["subject"]?.label }}
           <span
@@ -38,6 +34,7 @@
           ></label
         >
         <input
+          tourAnchor="report.subject"
           type="text"
           pInputText
           #subject
@@ -49,7 +46,7 @@
         </div>
       </div>
       <div class="form__control-group">
-        <!-- <div  tourAnchor="report.severity"></div> -->
+        <div tourAnchor="report.severity"></div>
         <div class="form__control">
           <label for="severity"
             >{{ fields["severity"]?.label }}
@@ -75,7 +72,6 @@
           </div>
         </div>
         <div class="form__control">
-          <!-- <div tourAnchor="report.status" class="chec"></div> -->
           <label for="status"
             >{{ fields["status"]?.label
             }}<span class="invalid" *ngIf="fields['status']?.required"
@@ -83,6 +79,7 @@
             ></label
           >
           <p-dropdown
+            tourAnchor="report.status"
             (onChange)="updateDescriptionStore($event.value)"
             [options]="statusOptions"
             [style]="{ width: '50%', minWidth: '362px' }"
@@ -102,8 +99,11 @@
             >*</span
           ></label
         >
-        <textarea pInputTextarea formControlName="describeTheBug"></textarea>
-        <div tourAnchor="report.describe"></div>
+        <textarea
+          pInputTextarea
+          formControlName="describeTheBug"
+          tourAnchor="report.describe"
+        ></textarea>
         <div class="invalidMessage" *ngIf="isRequired('describeTheBug')">
           Field is required!
         </div>
@@ -126,6 +126,7 @@
       <div class="form__control">
         <ng-container *ngIf="!isTagged(); else viewButton">
           <button
+          tourAnchor="report.submit"
             type="submit"
             pButton
             label="Submit"

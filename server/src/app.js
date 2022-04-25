@@ -18,7 +18,7 @@ module.exports.user = (req, res, next) => {
       if (isExist) {
         return res.send({
           status: "Ok",
-          statuCode: 200,
+          statusCode: 200,
           message: "Valid credentials!",
           payload: {
             user: req.body.username,
@@ -30,7 +30,7 @@ module.exports.user = (req, res, next) => {
       } else {
         return res.send({
           status: "Ok",
-          statuCode: 401,
+          statusCode: 401,
           message: "Wrong username or password",
           body: {
             user: req.body.username,
@@ -65,13 +65,13 @@ module.exports.createUser = (req, res, next) => {
             if (err) {
               return res.send({
                 status: "Ok",
-                statuCode: 404,
+                statusCode: 404,
                 message: "Database not found...",
               });
             } else {
               return res.send({
                 status: "Ok",
-                statuCode: 200,
+                statusCode: 200,
                 message: "New user account created!",
                 payload: {
                   user: req.body.username,
@@ -86,7 +86,7 @@ module.exports.createUser = (req, res, next) => {
       } else {
         return res.send({
           status: "Ok",
-          statuCode: 409,
+          statusCode: 409,
           message: "Username already exist!",
         });
       }
@@ -108,13 +108,13 @@ module.exports.createReports = (req, res, next) => {
           if (err) {
             return res.send({
               status: "Ok",
-              statuCode: 404,
+              statusCode: 404,
               message: "Database not found...",
             });
           } else {
             return res.send({
               status: "Ok",
-              statuCode: 200,
+              statusCode: 200,
               message: "New report created.",
             });
           }
@@ -134,7 +134,7 @@ module.exports.getAllReports = (req, res, next) => {
       if (err) {
         return res.send({
           status: "Ok",
-          statuCode: 200,
+          statusCode: 200,
           message: "Database not found",
           payload: []
         });
@@ -142,7 +142,7 @@ module.exports.getAllReports = (req, res, next) => {
         const reports = JSON.parse(data)?.reports;
         return res.send({
           status: "Ok",
-          statuCode: 200,
+          statusCode: 200,
           message: "All reports fetched!",
           payload: reports,
         });
@@ -159,7 +159,7 @@ module.exports.updateReport = (req,res,next)=>{
       if (err) {
         return res.send({
           status: "Ok",
-          statuCode: 404,
+          statusCode: 404,
           message: "Database not found",
           payload: []
         });
@@ -173,13 +173,13 @@ module.exports.updateReport = (req,res,next)=>{
             if (err) {
               return res.send({
                 status: "Ok",
-                statuCode: 404,
+                statusCode: 404,
                 message: "Database not found...",
               });
             } else {
               return res.send({
                 status: "Ok",
-                statuCode: 200,
+                statusCode: 200,
                 message: "Report updated!",
               });
             }
@@ -198,7 +198,7 @@ module.exports.deleteReports = (req,res,next)=>{
       if (err) {
         return res.send({
           status: "Ok",
-          statuCode: 200,
+          statusCode: 200,
           message: "Database not found",
           payload: []
         });
@@ -214,13 +214,13 @@ module.exports.deleteReports = (req,res,next)=>{
             if (err) {
               return res.send({
                 status: "Ok",
-                statuCode: 404,
+                statusCode: 404,
                 message: "Database not found...",
               });
             } else {
               return res.send({
                 status: "Ok",
-                statuCode: 200,
+                statusCode: 200,
                 message: "Report updated!",
               });
             }

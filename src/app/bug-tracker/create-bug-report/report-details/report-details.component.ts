@@ -66,7 +66,7 @@ export class ReportDetailsComponent
     this.commonService.curretUser$.subscribe((name) => {
       this.currentUser = name;
     });
-    this.fg = this.createForm();
+    this.fg = this.createForm(this.fields);
 
     if (this.description) {
       this.fg.patchValue(this.description);
@@ -111,16 +111,16 @@ export class ReportDetailsComponent
    * @param none
    * @returns `FormGroup`
    */
-  private createForm(): FormGroup {
+  private createForm(fields: Fields): FormGroup {
     // TODO: Refactoring required!
     const control = {};
-    Object.keys(this.fields).forEach((field) => {
+    Object.keys(fields)?.forEach((field) => {
       control[field] = [
         {
           value: null,
           disabled: this._editable(field),
         },
-        this.fields[field]?.required &&
+        fields[field]?.required &&
         (!this.type || this.currentUser !== this.description?.user)
           ? Validators.required
           : Validators.nullValidator,

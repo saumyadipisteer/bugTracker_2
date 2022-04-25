@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './components/home.component'; 
+import { HomeComponent } from './components/home.component';
+import { TourNgxBootstrapModule } from 'ngx-tour-ngx-bootstrap'; 
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { HomeComponent } from './components/home.component';
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    TourNgxBootstrapModule
   ]
 })
 export class HomeModule { }

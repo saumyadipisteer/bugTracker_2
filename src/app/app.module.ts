@@ -13,24 +13,24 @@ import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from 'primeng/api';
 import { userReducer } from './shared/store/user/user.reducer';
 import { reportReducer } from './shared/store/report/report.reduce';
-import { TourMatMenuModule } from 'ngx-tour-md-menu';
+import { TourNgxBootstrapModule } from 'ngx-tour-ngx-bootstrap';
+
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    
+    TourNgxBootstrapModule.forRoot(),
     StoreModule.forRoot({ user: userReducer, report: reportReducer }, {}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
-    SharedModule,
-    TourMatMenuModule.forRoot()
+    SharedModule, 
   ],
   providers: [],
   bootstrap: [AppComponent],
