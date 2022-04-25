@@ -12,7 +12,6 @@ import { User } from './shared/interface/user';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'Bug-tracker';
   constructor(
     private store: Store,
     private commonService: CommonService,
@@ -27,57 +26,10 @@ export class AppComponent implements OnInit, OnDestroy {
         anchorId: 'report.createReport',
         content: 'Click to start a report',
         title: 'Create report',
-        endBtnTitle: 'Done',
         route: '',
         containerClass: 'custom-popover',
         placement: 'left',
-      },    
-      {
-        anchorId: 'report.subject',
-        content: 'A mandatory field',
-        title: 'Subject',
-        endBtnTitle: 'Done',
-        route: 'bug/createReport',
-        containerClass: 'custom-popover',
-        placement: 'left',
-      },
-      {
-        anchorId: 'report.severity',
-        content:
-          'Another mandatory field, with options like low, medium and high',
-        endBtnTitle: 'Done',
-        containerClass: 'custom-popover',
-        title: 'Severity',
-        route: 'bug/createReport',
-        placement: 'left',
-      },
-      {
-        anchorId: 'report.status',
-        content: 'Another mandatory field',
-        endBtnTitle: 'Done',
-        title: 'Status',
-        containerClass: 'custom-popover',
-        route: 'bug/createReport',
-        placement: 'left',
-      },
-      {
-        anchorId: 'report.describe',
-        content: 'Not mandetory, but a bug can be described',
-        endBtnTitle: 'Done',
-        title: 'Report description',
-        containerClass: 'custom-popover',
-        route: 'bug/createReport',
-        placement: 'left',
-      },
-      {
-        anchorId: 'report.submit',
-        content: 'Hit submit, after filling the form',
-        endBtnTitle: 'Done',
-        title: 'Submit',
-        containerClass: 'custom-popover',
-        route: 'bug/createReport',
-        placement: 'left',
-      },
+      }
     ]);
     this.tourService;
     this.tourService.start();

@@ -37,19 +37,44 @@ describe('ReportDetailsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-    const fields = {
-      details: {
-        subject: {
-          label: 'Subject',
-          field: 'subject',
-          required: true,
-          disabled: false,
-        }
-      }
-    }
-
+  // it('should create', () => {
+  //   const fields = {
+  //     details: {
+  //       subject: {
+  //         label: 'Subject',
+  //         field: 'subject',
+  //         required: true,
+  //         disabled: false,
+  //       },
+  //       severity: {
+  //         label: 'Severity',
+  //         field: 'severity',
+  //         required: true,
+  //         disabled: false,
+  //       },
+  //       status: {
+  //         label: 'Status',
+  //         field: 'severity',
+  //         required: true,
+  //         disabled: false,
+  //       },
+  //       describeTheBug: {
+  //         label: 'Describe the bug',
+  //         field: 'describeTheBug',
+  //         required: false,
+  //         disabled: false,
+  //       },
+  //       taggedBy: {
+  //         label: 'Will fix this',
+  //         field: 'taggedBy',
+  //         required: false,
+  //         disabled: false,
+  //       },
+  //     },
+  //   }
+  //   expect(component).toBeTruthy();
+  //   const privateForm = spyOn<any>(component,'createForm');
     
-  });
+  //   expect(component['createForm']).toHaveBeenCalled()
+  // });
 });

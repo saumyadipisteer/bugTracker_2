@@ -49,7 +49,7 @@ export class ReportDetailsComponent
   @Input() type: string;
   @Input() index: number;
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild('subject') subjectField: ElementRef;
+  @ViewChild('subjectField') subjectField: ElementRef;
   isFormInvalid: boolean = false;
   currentUser: string | undefined;
   private _subscription: Subscription = new Subscription();
@@ -78,7 +78,7 @@ export class ReportDetailsComponent
   }
 
   /**
-   * @description on every key store or paste the store will get update
+   * @description on every key or paste the store will get update
    * @returns `void`
    */
   private _updateSubjectStore(): void {
@@ -114,7 +114,7 @@ export class ReportDetailsComponent
   private createForm(fields: Fields): FormGroup {
     // TODO: Refactoring required!
     const control = {};
-    Object.keys(fields)?.forEach((field) => {
+    Object.keys(fields || {})?.forEach((field) => {
       control[field] = [
         {
           value: null,
