@@ -1,5 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TourService } from 'ngx-tour-ngx-bootstrap';
+import { TourNgxBootstrapModule } from 'ngx-tour-ngx-bootstrap';
 import { BugListTableComponent } from './bug-list/bug-list-table/bug-list-table.component';
 import { BugListComponent } from './bug-list/bug-list.component';
 
@@ -23,8 +25,8 @@ describe('BugTrackerComponent', () => {
         BugListTableComponent,
         ReporteeDetailsComponent,
       ],
-      providers:[ReportService],
-      imports:[HttpClientTestingModule]
+      providers: [ReportService, TourService],
+      imports: [HttpClientTestingModule],
     }).compileComponents();
   });
 

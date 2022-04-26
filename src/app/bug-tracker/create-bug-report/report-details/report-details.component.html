@@ -117,16 +117,20 @@
           inputId="binary"
           id="taggedBy"
           formControlName="taggedBy"
+          (onChange)="isFixing = !isFixing"
         ></p-checkbox>
         <label for="taggedBy">Will fix it</label>
       </div>
-      <div class="form__control">
-        <!-- <reportee-details></reportee-details> -->
+      <div class="form__control" *ngIf="currentUser !== description?.user && type">
+        <reportee-details
+          [isFixing]="isFixing"
+          (dueDate)="getDueDate($event)"
+        ></reportee-details>
       </div>
       <div class="form__control">
         <ng-container *ngIf="!isTagged(); else viewButton">
           <button
-          tourAnchor="report.submit"
+            tourAnchor="report.submit"
             type="submit"
             pButton
             label="Submit"

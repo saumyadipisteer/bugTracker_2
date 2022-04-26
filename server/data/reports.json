@@ -76,7 +76,12 @@
       "severity": "Low",
       "describeTheBug": "assadjadlks",
       "user": "ankeshpandey",
-      "createdOn": "Thursday 04 2022"
+      "lastUpdatedOn": "Monday 04 2022",
+      "updatedBy": "onekilobyte",
+      "createdOn": "Thursday 04 2022",
+      "taggedBy": true,
+      "taggedByUser": "onekilobyte",
+      "dueDate": "27 Apr 2022"
     }
   ]
 }

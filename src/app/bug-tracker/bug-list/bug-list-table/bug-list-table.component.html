@@ -34,7 +34,7 @@
       <td>{{ report?.status }}</td>
       <td>{{ report?.user }}</td>
       <td>{{ report?.createdOn }}</td>
-      <td>----, ----</td>
+      <td>{{ report.dueDate ? report.dueDate : "----, ----" }}</td>
       <td>
         <button
           pButton

@@ -52,6 +52,8 @@ export class ReportDetailsComponent
   @ViewChild('subjectField') subjectField: ElementRef;
   isFormInvalid: boolean = false;
   currentUser: string | undefined;
+  isFixing: boolean = false;
+  dueDate:string;
   private _subscription: Subscription = new Subscription();
 
   fg: FormGroup;
@@ -129,21 +131,6 @@ export class ReportDetailsComponent
     return new FormBuilder().group(control);
   }
 
-  // private createFormControl(name: string) {
-  //   return [
-  //     {
-  //       value: null,
-  //       disabled:
-  //         name === 'taggedBy' && this.isTagged()
-  //           ? true
-  //           : this.fields[name]?.disabled,
-  //     },
-  //     this.fields[name]?.required
-  //       ? Validators.required
-  //       : Validators.nullValidator,
-  //   ];
-  // }
-
   private _editable(field: string): boolean {
     let editable;
     switch (field) {
@@ -168,6 +155,10 @@ export class ReportDetailsComponent
       (this.description?.taggedByUser === '' ||
         !!this.description?.taggedByUser)
     );
+  }
+
+  getDueDate(date){
+    this.dueDate = date;
   }
 
   /**
@@ -229,7 +220,7 @@ export class ReportDetailsComponent
   private _generateData(data: any, description?: Description): any {
     if (!this.type) {
       return {
-        subject: data.subject,
+        subject: data?.subject,
         status: data.status,
         severity: data.severity,
         describeTheBug: data.describeTheBug,
@@ -240,7 +231,7 @@ export class ReportDetailsComponent
       };
     } else {
       return {
-        subject: data.subject,
+        subject: data?.subject,
         status: data.status,
         severity: data.severity,
         describeTheBug: data.describeTheBug,
@@ -253,6 +244,7 @@ export class ReportDetailsComponent
           data.taggedBy && !this.isTagged()
             ? this.currentUser
             : data?.taggedByUser,
+        dueDate: this.dueDate
       };
     }
   }

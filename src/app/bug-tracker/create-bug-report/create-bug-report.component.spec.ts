@@ -9,6 +9,9 @@ import { BugReportComponent } from './create-bug-report.component';
 import { ReportService } from '../services/report.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Calendar, CalendarModule } from 'primeng/calendar';
+import { TourService } from 'ngx-tour-ngx-bootstrap';
+import { TourNgxBootstrapModule } from 'ngx-tour-ngx-bootstrap';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateBugReportComponent', () => {
   let component: BugReportComponent;
@@ -29,12 +32,15 @@ describe('CreateBugReportComponent', () => {
         CardModule,
         ToastModule,
         HttpClientTestingModule,
+        RouterTestingModule
       ],
       providers: [
         DynamicDialogConfig,
         DynamicDialogRef,
         provideMockStore({}),
         ReportService,
+        TourService,
+        
       ],
     }).compileComponents();
   });

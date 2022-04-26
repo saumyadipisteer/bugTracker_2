@@ -37,6 +37,10 @@ describe('ReportDetailsComponent', () => {
     fixture.detectChanges();
   });
 
+  it('should call update description store',()=>{
+    
+  })
+
   // it('should create', () => {
   //   const fields = {
   //     details: {

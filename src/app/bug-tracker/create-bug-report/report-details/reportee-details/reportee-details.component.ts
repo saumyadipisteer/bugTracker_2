@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'reportee-details',
@@ -7,10 +7,17 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReporteeDetailsComponent implements OnInit {
-
+  @Input() isFixing: boolean; 
+  @Output() dueDate: EventEmitter<string> = new EventEmitter<string>();
   constructor() { }
+  date: '';
+
 
   ngOnInit(): void {
+  }
+
+  onSelection(){
+    this.dueDate.emit(this.date)
   }
 
 }
