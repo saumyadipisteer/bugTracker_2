@@ -130,7 +130,6 @@
       <div class="form__control">
         <ng-container *ngIf="!isTagged(); else viewButton">
           <button
-            tourAnchor="report.submit"
             type="submit"
             pButton
             label="Submit"
@@ -144,3 +143,4 @@
 <ng-template #viewButton>
   <button type="submit" pButton label="Close" class="submit__btn"></button>
 </ng-template>
+<p tourAnchor="report.submit" style="text-align: center; margin: 50px 0;">Dummy para</p>

@@ -1,0 +1,41 @@
+<div class="control__layout">
+  <div class="control__sidebar">
+    <ul class="control__sidebar-list">
+      <li class="control__sidebar-list--item">
+        <div class="user__avatar">
+          <div class="user__avatar-pic">
+            <div class="user__avatar-pic--text">U</div>
+          </div>
+          <div class="user__avatar-ref">Username</div>
+        </div>
+      </li>
+      <li class="control__sidebar-list--item active__link">
+        <i class="fa-solid fa-file" style="margin-inline: 5px"></i>
+        <a routerLink="reports" class="control__sidebar-list--item---link"
+          >Reports</a
+        >
+      </li>
+      <li class="control__sidebar-list--item">
+        <i class="fas fa-cog" style="margin-inline: 5px"></i>
+        <a routerLink="account" class="control__sidebar-list--item---link"
+          >Account</a
+        >
+      </li>
+      <li class="control__sidebar-list--item">
+        <i class="fas fa-user" style="margin-inline: 5px"></i
+        ><a routerLink="profile" class="control__sidebar-list--item---link"
+          >Profile</a
+        >
+      </li>
+      <li class="control__sidebar-list--item">
+        <i class="fas fa-bell" style="margin-inline: 5px"></i
+        ><a routerLink="notification" class="control__sidebar-list--item---link"
+          >Notification</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="control__content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

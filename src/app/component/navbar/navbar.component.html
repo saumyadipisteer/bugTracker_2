@@ -53,7 +53,9 @@
 <ng-template #showlogout>
   <div class="right__menu">
     <li class="recipe__navbar-menu--item">
-      {{ currentUserName }}
+      <a routerLink="userControl" class="recipe__navbar-menu--link">{{
+        currentUserName
+      }}</a>
     </li>
     <li class="recipe__navbar-menu--item">
       <a href="" class="recipe__navbar-menu--link" (click)="userLoggedOut()"

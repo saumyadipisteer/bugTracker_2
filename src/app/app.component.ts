@@ -20,19 +20,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initialNGRXStore();
-
-    this.tourService.initialize([
-      {
-        anchorId: 'report.createReport',
-        content: 'Click to start a report',
-        title: 'Create report',
-        route: '',
-        containerClass: 'custom-popover',
-        placement: 'left',
-      }
-    ]);
-    this.tourService;
-    this.tourService.start();
   }
 
   private initialNGRXStore(): void {
