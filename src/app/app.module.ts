@@ -13,7 +13,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from 'primeng/api';
 import { userReducer } from './shared/store/user/user.reducer';
 import { reportReducer } from './shared/store/report/report.reduce';
-import { TourNgxBootstrapModule } from 'ngx-tour-ngx-bootstrap';
 
 
 @NgModule({
@@ -23,7 +22,6 @@ import { TourNgxBootstrapModule } from 'ngx-tour-ngx-bootstrap';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    TourNgxBootstrapModule.forRoot(),
     StoreModule.forRoot({ user: userReducer, report: reportReducer }, {}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

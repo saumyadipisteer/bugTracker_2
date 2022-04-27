@@ -26,6 +26,14 @@ import { UserNotificationComponent } from './user-notification/user-notification
           {
             path:'account',
             component: UserAccountComponent
+          },
+          {
+            path:'profile',
+            component: UserProfileComponent
+          },
+          {
+            path:'notification',
+            component: UserNotificationComponent
           }
         ]
       }

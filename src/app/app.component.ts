@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { CommonService } from './shared/services/common.service';
 import { addReport } from './shared/store/report/report.action';
 import { userLoginAction } from './shared/store/user/user.action';
-import { TourService } from 'ngx-tour-ngx-bootstrap';
 import { User } from './shared/interface/user';
 
 @Component({
@@ -15,7 +14,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private commonService: CommonService,
-    private tourService: TourService
   ) {}
 
   ngOnInit(): void {

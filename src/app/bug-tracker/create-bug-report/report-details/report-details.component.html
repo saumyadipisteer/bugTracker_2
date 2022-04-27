@@ -34,7 +34,6 @@
           ></label
         >
         <input
-          tourAnchor="report.subject"
           type="text"
           pInputText
           #subjectField
@@ -46,7 +45,6 @@
         </div>
       </div>
       <div class="form__control-group">
-        <div tourAnchor="report.severity"></div>
         <div class="form__control">
           <label for="severity"
             >{{ fields["severity"]?.label }}
@@ -79,7 +77,6 @@
             ></label
           >
           <p-dropdown
-            tourAnchor="report.status"
             (onChange)="updateDescriptionStore($event.value)"
             [options]="statusOptions"
             [style]="{ width: '50%', minWidth: '362px' }"
@@ -102,7 +99,6 @@
         <textarea
           pInputTextarea
           formControlName="describeTheBug"
-          tourAnchor="report.describe"
         ></textarea>
         <div class="invalidMessage" *ngIf="isRequired('describeTheBug')">
           Field is required!
@@ -143,4 +139,3 @@
 <ng-template #viewButton>
   <button type="submit" pButton label="Close" class="submit__btn"></button>
 </ng-template>
-<p tourAnchor="report.submit" style="text-align: center; margin: 50px 0;">Dummy para</p>

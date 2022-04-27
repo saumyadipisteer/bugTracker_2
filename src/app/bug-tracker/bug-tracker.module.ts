@@ -31,8 +31,6 @@ import { ConfirmationService } from 'primeng/api';
 import { EffectsModule } from '@ngrx/effects';
 import { ReportsEffect } from './state/report/report.effects';
 import { ReporteeDetailsComponent } from './create-bug-report/report-details/reportee-details/reportee-details.component';
-// import { TourMatMenuModule } from 'ngx-tour-md-menu';
-import { TourNgxBootstrapModule } from 'ngx-tour-ngx-bootstrap';
 
 const primengModule = [
   ButtonModule,
@@ -67,7 +65,6 @@ const primengModule = [
     StoreModule.forFeature('description', descriptionReducer),
     StoreModule.forFeature('report', reportReducer),
     EffectsModule.forFeature([ReportsEffect]),
-    TourNgxBootstrapModule
   ],
   providers: [DynamicDialogConfig, DynamicDialogRef, ConfirmationService],
 })
