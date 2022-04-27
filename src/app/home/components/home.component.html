@@ -1,10 +1,26 @@
+<joyrideStep
+  joyrideStep="welcome"
+  text="Welcome to Bug tracker app"
+  stepPosition="center"
+  [nextTemplate]="nextButton"
+  [prevTemplate]="prevButton"
+  [doneTemplate]="doneButton"
+  [counterTemplate]="counter"
+  [stepContent]="welcome"
+>
+</joyrideStep>
 <div class="home__content">
   <div class="home__title">
     <h1 class="home__title-text">Bug tracker</h1>
   </div>
 
   <ng-container *ngIf="isLoggedIn$ | async; else notLoggedIn">
-    <a [routerLink]="['bug/createReport']" class="home__content-create"
+    <a
+      class="home__content-create"
+      joyrideStep="reportForm"
+      text="Click the button to start a new report"
+      [routerLink]="['bug/createReport']"
+      stepPosition="bottom"
       >Report a bug</a
     >
   </ng-container>
@@ -13,5 +29,27 @@
   <div class="button__groups">
     <a [routerLink]="'user/signin'" class="home__content-create">Sign In</a>
     <a [routerLink]="'user/signup'" class="home__content-create">Sign Up</a>
+  </div>
+</ng-template>
+<ng-template #nextButton>
+  <button pButton label="Next"></button>
+</ng-template>
+<ng-template #prevButton>
+  <button pButton label="Prev" class="p-btton-info"></button>
+</ng-template>
+<ng-template #doneButton>
+  <button pButton label="Done" class="p-button-success"></button>
+</ng-template>
+<ng-template #counter let-step="step" let-total="total">
+  {{ step }} of <strong>{{ total }}</strong> steps
+</ng-template>
+<ng-template #welcome>
+  <div class="welcome__content">
+    <img
+      src="../../../assets/icons/bug.ico"
+      alt=""
+      style="display: block; margin-inline: auto; margin-bottom: 10px;"
+    />
+    <p>Welcome to Bug tracking app</p>
   </div>
 </ng-template>

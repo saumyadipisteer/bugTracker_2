@@ -1,3 +1,4 @@
+// @ts-ignore: Object is possibly 'undefined'.
 import {
   AfterViewInit,
   Component,
@@ -15,7 +16,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   debounceTime,
@@ -200,6 +201,14 @@ export class ReportDetailsComponent
     } else {
       this.isFormInvalid = this.fg.valid;
     }
+  }
+
+  /**
+   * @description To change routes
+   * @returns `void`
+   */
+  onPrev():void{
+    this.router.navigate([''])
   }
 
   /**

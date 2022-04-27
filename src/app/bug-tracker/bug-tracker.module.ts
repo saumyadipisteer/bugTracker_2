@@ -31,6 +31,7 @@ import { ConfirmationService } from 'primeng/api';
 import { EffectsModule } from '@ngrx/effects';
 import { ReportsEffect } from './state/report/report.effects';
 import { ReporteeDetailsComponent } from './create-bug-report/report-details/reportee-details/reportee-details.component';
+import { JoyrideModule } from 'ngx-joyride';
 
 const primengModule = [
   ButtonModule,
@@ -65,6 +66,7 @@ const primengModule = [
     StoreModule.forFeature('description', descriptionReducer),
     StoreModule.forFeature('report', reportReducer),
     EffectsModule.forFeature([ReportsEffect]),
+    JoyrideModule.forChild()
   ],
   providers: [DynamicDialogConfig, DynamicDialogRef, ConfirmationService],
 })

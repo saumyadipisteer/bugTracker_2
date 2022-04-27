@@ -7,6 +7,7 @@ import { UserReportsComponent } from './user-reports/user-reports.component';
 import { UserAccountComponent } from './user-account/user-account.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserNotificationComponent } from './user-notification/user-notification.component';
+import { JoyrideModule } from 'ngx-joyride';
 
 @NgModule({
   declarations: [UserHomeComponent],
@@ -14,6 +15,7 @@ import { UserNotificationComponent } from './user-notification/user-notification
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    JoyrideModule.forChild(),
     RouterModule.forChild([
       {
         path: '',

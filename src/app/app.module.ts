@@ -13,6 +13,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from 'primeng/api';
 import { userReducer } from './shared/store/user/user.reducer';
 import { reportReducer } from './shared/store/report/report.reduce';
+import { JoyrideModule } from 'ngx-joyride';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { reportReducer } from './shared/store/report/report.reduce';
     }),
     EffectsModule.forRoot([]),
     SharedModule, 
+    JoyrideModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ReportService } from '../services/report.service';
 import { currentUsersReportSelector } from '../state/report/report.selector';
-import { TourService } from 'ngx-tour-ngx-bootstrap';
+
 
 @Component({
   selector: 'app-create-bug-report',
@@ -60,7 +60,7 @@ export class BugReportComponent implements OnInit, OnDestroy {
     private dialogRef: DynamicDialogRef,
     private store: Store,
     private reportService: ReportService,
-    private tourService: TourService
+    
   ) {}
   description: any;
   type: string;
@@ -76,59 +76,6 @@ export class BugReportComponent implements OnInit, OnDestroy {
     //   .pipe(select(currentUsersReportSelector('twomegabyte')))
     //   .subscribe((data) => console.log(data)); TODO - Use it on my reports
 
-    if (!this.type) {
-      // this.tourService.initialize([
-      //   {
-      //     anchorId: 'report.subject',
-      //     content: 'Subject of the report must be entered',
-      //     title: 'Subject',
-      //     endBtnTitle: 'Done',
-      //     route: 'bug/createReport',
-      //     containerClass: 'custom-popover',
-      //     placement: 'left',
-      //   },
-      //   {
-      //     anchorId: 'report.severity',
-      //     content:
-      //       'Another mandatory field, with options like low, medium and high',
-      //     endBtnTitle: 'Done',
-      //     containerClass: 'custom-popover',
-      //     title: 'Severity',
-      //     route: 'bug/createReport',
-      //     placement: 'left',
-      //   },
-      //   {
-      //     anchorId: 'report.status',
-      //     content: 'For setting the current status of the report',
-      //     endBtnTitle: 'Done',
-      //     title: 'Status',
-      //     containerClass: 'custom-popover',
-      //     route: 'bug/createReport',
-      //     placement: 'left',
-      //   },
-      //   {
-      //     anchorId: 'report.describe',
-      //     content: 'Not mandetory, but a bug can be described',
-      //     endBtnTitle: 'Done',
-      //     title: 'Report description',
-      //     containerClass: 'custom-popover',
-      //     route: 'bug/createReport',
-      //     placement: 'left',
-      //   },
-      //   {
-      //     anchorId: 'report.submit',
-      //     content: 'Hit submit, after filling the form',
-      //     endBtnTitle: 'Done',
-      //     title: 'Submit',
-      //     containerClass: 'custom-popover',
-      //     route: 'bug/createReport',
-      //     placement: 'top',
-      //     preventScrolling: true,
-      //   },
-      // ]);
-
-      // this.tourService.start();
-    }
   }
 
   closeModal() {

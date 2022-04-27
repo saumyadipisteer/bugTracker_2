@@ -4,6 +4,7 @@ import { CommonService } from './shared/services/common.service';
 import { addReport } from './shared/store/report/report.action';
 import { userLoginAction } from './shared/store/user/user.action';
 import { User } from './shared/interface/user';
+import { JoyrideService } from 'ngx-joyride';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private commonService: CommonService,
+    private joyrideService: JoyrideService
   ) {}
 
   ngOnInit(): void {
     this.initialNGRXStore();
+    
   }
 
   private initialNGRXStore(): void {

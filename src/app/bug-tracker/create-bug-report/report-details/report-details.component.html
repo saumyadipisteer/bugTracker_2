@@ -39,6 +39,11 @@
           #subjectField
           formControlName="subject"
           id="subject"
+          joyrideStep="subject"
+          title="Subject"
+          text="Reports subject goes here, a mandatory field"
+          (prev)="onPrev()"
+          
         />
         <div class="invalidMessage" *ngIf="isRequired('subject')">
           Field is required!
@@ -64,6 +69,9 @@
             placeholder="--Select--"
             formControlName="severity"
             id="severity"
+            joyrideStep="severity"
+            title="Severity"
+            text="How sever is the bug"
           ></p-dropdown>
           <div class="invalidMessage" *ngIf="isRequired('severity')">
             Field is required!
@@ -83,6 +91,9 @@
             formControlName="status"
             placeholder="--Select--"
             id="status"
+            joyrideStep="status"
+            title="Status"
+            text="Status of report"
           ></p-dropdown>
           <div class="invalidMessage" *ngIf="isRequired('status')">
             Field is required!
@@ -99,6 +110,9 @@
         <textarea
           pInputTextarea
           formControlName="describeTheBug"
+          joyrideStep="describeTheBug"
+          title="Description"
+          text="Bug can be described"
         ></textarea>
         <div class="invalidMessage" *ngIf="isRequired('describeTheBug')">
           Field is required!
@@ -117,7 +131,10 @@
         ></p-checkbox>
         <label for="taggedBy">Will fix it</label>
       </div>
-      <div class="form__control" *ngIf="currentUser !== description?.user && type">
+      <div
+        class="form__control"
+        *ngIf="currentUser !== description?.user && type"
+      >
         <reportee-details
           [isFixing]="isFixing"
           (dueDate)="getDueDate($event)"
@@ -139,3 +156,4 @@
 <ng-template #viewButton>
   <button type="submit" pButton label="Close" class="submit__btn"></button>
 </ng-template>
+
